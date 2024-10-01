@@ -10,6 +10,13 @@ Login:
   MustBeMemberOfOrg: L'utilisateur doit être membre de l'organisation {{.OrgName}}.
   RegisterButtonText: S'inscrire
   NextButtonText: Suivant
+  LostMyId: J'ai perdu mon identifiant
+
+LoginLostIdPopin:
+  Title: Avez-vous perdu votre identifiant ?
+  Description: Contactez-nous pour que nous puissions vous venir en aide.
+  Email: Email
+  Phone: Téléphone
 
 LDAP:
   Title: Connexion
@@ -95,7 +102,7 @@ InviteUser:
   NextButtonText: Suivant
   ResendButtonText: Renvoyer le code
 
-InitMFAPrompt:
+  InitMFAPrompt:
   Title: Configuration authentification à 2 facteurs
   Description: L'authentification authentification à 2 facteurs vous offre une sécurité supplémentaire pour votre compte d'utilisateur. Vous êtes ainsi assuré d'être le seul à avoir accès à votre compte.
   Provider0: Application d'authentification (par exemple, Google/Microsoft Authenticator, Authy)
@@ -146,14 +153,14 @@ MFAProvider:
   ChooseOther: Ou choisissez une autre option
 
 VerifyMFAOTP:
-  Title: Vérifier authentification à 2 facteurs
-  Description: Vérifiez votre authentification à 2 facteurs
+  Title: Double authentification
+  Description: Saisissez le code à usage unique
   CodeLabel: Code
   NextButtonText: Suivant
 
 VerifyOTP:
-  Title: Vérifier authentification à 2 facteurs
-  Description: Vérifiez votre authentification à 2 facteurs
+  Title: Double authentification
+  Description: Saisissez le code à usage unique
   CodeLabel: Code
   ResendButtonText: Renvoyer le code
   NextButtonText: Suivant
