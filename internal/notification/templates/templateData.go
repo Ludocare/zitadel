@@ -29,6 +29,7 @@ type TemplateData struct {
 	FontURL         string `json:"fontUrl,omitempty"`
 	FontFaceFamily  string `json:"fontFaceFamily,omitempty"`
 	FontFamily      string `json:"fontFamily,omitempty"`
+	MsgType         string
 
 	IncludeFooter bool   `json:"includeFooter,omitempty"`
 	FooterText    string `json:"footerText,omitempty"`
@@ -41,6 +42,7 @@ func (data *TemplateData) Translate(translator *i18n.Translator, msgType string,
 	data.Greeting = translator.Localize(fmt.Sprintf("%s.%s", msgType, domain.MessageGreeting), args, langs...)
 	data.Text = translator.Localize(fmt.Sprintf("%s.%s", msgType, domain.MessageText), args, langs...)
 	data.ButtonText = translator.Localize(fmt.Sprintf("%s.%s", msgType, domain.MessageButtonText), args, langs...)
+	data.MsgType = msgType
 	// Footer text is neither included in i18n files nor defaults.yaml
 	footerText := fmt.Sprintf("%s.%s", msgType, domain.MessageFooterText)
 	data.FooterText = translator.Localize(footerText, args, langs...)
