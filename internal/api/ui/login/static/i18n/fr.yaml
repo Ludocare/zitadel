@@ -102,7 +102,7 @@ InviteUser:
   NextButtonText: Suivant
   ResendButtonText: Renvoyer le code
 
-  InitMFAPrompt:
+InitMFAPrompt:
   Title: Configuration authentification à 2 facteurs
   Description: L'authentification authentification à 2 facteurs vous offre une sécurité supplémentaire pour votre compte d'utilisateur. Vous êtes ainsi assuré d'être le seul à avoir accès à votre compte.
   Provider0: Application d'authentification (par exemple, Google/Microsoft Authenticator, Authy)
