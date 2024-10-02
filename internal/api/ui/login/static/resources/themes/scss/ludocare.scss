@@ -121,11 +121,11 @@ input.lgn-input {
   padding-block: var(--otp-pb, 0.5ch) !important;
   padding-inline-start: 10px !important;
   clip-path: inset(0% calc(var(--otp-ls) / 2) 0% 0%) !important;
-
   @media (max-width: 360px) {
     margin-left: 2% !important;
   }
   margin-left: 5% !important;
+  text-align: left !important;
 }
 
 .ludoOtpCode {
