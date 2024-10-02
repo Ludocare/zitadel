@@ -100,7 +100,7 @@ input.lgn-input {
   --otp-gap: 1;
   --_otp-bgsz: calc(var(--otp-ls) + 0.5ch);
   --_otp-digit: 0;
-  all: unset;
+  all: unset !important;
   background: linear-gradient(
       90deg,
       var(--otp-bg, #bbb) calc(var(--otp-gap) * var(--otp-ls)),
@@ -110,22 +110,22 @@ input.lgn-input {
       90deg,
       var(--otp-bg, #eee) calc(var(--otp-gap) * var(--otp-ls)),
       transparent 0
-    );
-  background-position: calc(var(--_otp-digit) * var(--_otp-bgsz)) 0, 0 0;
-  background-repeat: no-repeat, repeat-x;
-  background-size: var(--_otp-bgsz) 100%;
-  font-family: ui-monospace, monospace;
-  font-size: var(--otp-fz, 2em);
-  inline-size: calc(var(--otp-digits) * var(--_otp-bgsz));
-  letter-spacing: 1.59ch;
-  padding-block: var(--otp-pb, 0.5ch);
-  padding-inline-start: 10px;
-  clip-path: inset(0% calc(var(--otp-ls) / 2) 0% 0%);
+    ) !important;
+  background-position: calc(var(--_otp-digit) * var(--_otp-bgsz)) 0, 0 0 !important;
+  background-repeat: no-repeat, repeat-x !important;
+  background-size: var(--_otp-bgsz) 100% !important;
+  font-family: ui-monospace, monospace !important;
+  font-size: var(--otp-fz, 2em) !important;
+  inline-size: calc(var(--otp-digits) * var(--_otp-bgsz)) !important;
+  letter-spacing: 1.59ch !important;
+  padding-block: var(--otp-pb, 0.5ch) !important;
+  padding-inline-start: 10px !important;
+  clip-path: inset(0% calc(var(--otp-ls) / 2) 0% 0%) !important;
 
   @media (max-width: 360px) {
-    margin-left: 2%;
+    margin-left: 2% !important;
   }
-  margin-left: 5%;
+  margin-left: 5% !important;
 }
 
 .ludoOtpCode {
