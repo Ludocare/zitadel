@@ -1,95 +1,137 @@
 /*********************** SPECIFIC LUDOCARE *********************/
 :root {
-    --zitadel-color-text: rgb(93, 129, 255) !important;
-    --zitadel-color-second-text: #005667 !important;
-    --zitadel-color-text-500: rgb(93, 129, 255) !important;
+  --zitadel-color-text: rgb(93, 129, 255) !important;
+  --zitadel-color-second-text: #005667 !important;
+  --zitadel-color-text-500: rgb(93, 129, 255) !important;
 }
 
 #ludo-popin {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 340px;
-    z-index: 1000;
-    color: var(--zitadel-color-second-text);
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 340px;
+  z-index: 1000;
+  color: var(--zitadel-color-second-text);
 
-    h2 {
-        margin-top: 0;
-        color: var(--zitadel-color-text) !important;
-    }
-
+  h2 {
+    margin-top: 0;
+    color: var(--zitadel-color-text) !important;
+  }
 }
 
 #ludo-close-popin {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    font-size: 16px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 16px;
 }
 
 #ludo-overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 500;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 500;
 }
 
 .lgn-max-width-wrapper {
-    background: white;
-    border-radius: 20px;
-    margin-top: 80px !important;
+  background: white;
+  border-radius: 20px;
+  margin-top: 80px !important;
 }
 
 #ludo-circle {
-    height: 180px;
-    width: 180px;
-    background-color: white;
-    position: absolute;
-    top: -50px;
-    border-radius: 100px;
+  height: 180px;
+  width: 180px;
+  background-color: white;
+  position: absolute;
+  top: -50px;
+  border-radius: 100px;
 }
 
 .lgn-header {
-    min-height: 120px;
+  min-height: 120px;
 
-    .lgn-logo {
-        z-index: 100;
-        max-height: 120px;
-    }
+  .lgn-logo {
+    z-index: 100;
+    max-height: 120px;
+  }
 }
 
 .lgn-head p {
-    color: var(--zitadel-color-second-text);
+  color: var(--zitadel-color-second-text);
 }
 
 .lgn-raised-button.lgn-primary {
-    color: white !important;
+  color: white !important;
 }
 
 .sub-formfield-link {
-    color: var(--zitadel-color-text) !important;
-    cursor: pointer;
+  color: var(--zitadel-color-text) !important;
+  cursor: pointer;
 }
 
-
-.lgn-label, .lgn-checkbox, .lgn-field {
-    color: var(--zitadel-color-second-text);
+.lgn-label,
+.lgn-checkbox,
+.lgn-field {
+  color: var(--zitadel-color-second-text);
 }
 
 input.lgn-input {
-    color: var(--zitadel-color-second-text);
-    border-radius: 1rem;
+  color: var(--zitadel-color-second-text);
+  border-radius: 1rem;
+}
+
+:where([autocomplete="one-time-code"]) {
+  --otp-digits: 6;
+  --otp-ls: 2.1ch;
+  --otp-gap: 1;
+  --_otp-bgsz: calc(var(--otp-ls) + 0.5ch);
+  --_otp-digit: 0;
+  all: unset;
+  background: linear-gradient(
+      90deg,
+      var(--otp-bg, #bbb) calc(var(--otp-gap) * var(--otp-ls)),
+      transparent 0
+    ),
+    linear-gradient(
+      90deg,
+      var(--otp-bg, #eee) calc(var(--otp-gap) * var(--otp-ls)),
+      transparent 0
+    );
+  background-position: calc(var(--_otp-digit) * var(--_otp-bgsz)) 0, 0 0;
+  background-repeat: no-repeat, repeat-x;
+  background-size: var(--_otp-bgsz) 100%;
+  font-family: ui-monospace, monospace;
+  font-size: var(--otp-fz, 2em);
+  inline-size: calc(var(--otp-digits) * var(--_otp-bgsz));
+  letter-spacing: 1.59ch;
+  padding-block: var(--otp-pb, 0.5ch);
+  padding-inline-start: 10px;
+  clip-path: inset(0% calc(var(--otp-ls) / 2) 0% 0%);
+
+  @media (max-width: 360px) {
+    margin-left: 2%;
+  }
+  margin-left: 5%;
+}
+
+.ludoOtpCode {
+  text-align: center;
+
+  .lgn-label {
+    visibility: hidden;
+  }
 }
