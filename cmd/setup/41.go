@@ -16,8 +16,6 @@ type FillFieldsForInstanceDomains struct {
 func (mig *FillFieldsForInstanceDomains) Execute(ctx context.Context, _ eventstore.Event) error {
 	instances, err := mig.eventstore.InstanceIDs(
 		ctx,
-		0,
-		true,
 		eventstore.NewSearchQueryBuilder(eventstore.ColumnsInstanceIDs).
 			OrderDesc().
 			AddQuery().
@@ -38,5 +36,9 @@ func (mig *FillFieldsForInstanceDomains) Execute(ctx context.Context, _ eventsto
 }
 
 func (mig *FillFieldsForInstanceDomains) String() string {
-	return "41_fill_fields_for_instance_domains"
+	return "repeatable_fill_fields_for_instance_domains"
+}
+
+func (f *FillFieldsForInstanceDomains) Check(lastRun map[string]interface{}) bool {
+	return true
 }
