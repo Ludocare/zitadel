@@ -8,3 +8,16 @@ function autoSubmit() {
         form.submit();
     }
 }
+
+const countdownElement = document.getElementById('countdown');
+let timeLeft = 10;
+
+const countdownInterval = setInterval(() => {
+  countdownElement.textContent = timeLeft;
+  timeLeft--;
+
+  if (timeLeft < 0) {
+    clearInterval(countdownInterval);
+    countdownElement.textContent = "0";
+  }
+}, 1000);
