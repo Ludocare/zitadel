@@ -9,6 +9,13 @@
     {{if .RedirectURI}}
     <p>{{t "LoginSuccess.AutoRedirectDescription"}}</p>
     <div id="countdown">10</div>
+
+    <form action="{{ .RedirectURI }}" method="GET">
+
+        <input type="hidden" name="id" value="{{ .AuthReqID }}" />
+    
+        {{ template "error-message" .}}    
+    </form>
 </div>
 
 <script src="{{ resourceUrl "scripts/login_success.js" }}"></script>
