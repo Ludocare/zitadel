@@ -46,10 +46,16 @@
   z-index: 500;
 }
 
-.lgn-max-width-wrapper {
-  background: white;
-  border-radius: 20px;
-  margin-top: 80px !important;
+body .lgn-grow {
+  display: flex;
+  
+  .lgn-max-width-wrapper {
+    background: white;
+    border-radius: 20px;
+    margin-top: 50px !important;
+    align-self: center;
+    width: 100%;
+  }
 }
 
 #ludo-circle {
@@ -62,7 +68,7 @@
 }
 
 .lgn-header {
-  min-height: 120px;
+  min-height: 0px;
 
   .lgn-logo {
     z-index: 100;
@@ -70,8 +76,25 @@
   }
 }
 
-.lgn-head p {
-  color: var(--zitadel-color-second-text);
+.lgn-icon-button.lgn-left-action {
+  top: -20px;
+}
+
+.lgn-head {
+
+  p {
+    color: var(--zitadel-color-second-text);
+  }
+  
+  #countdown {
+    color: var(--zitadel-color-text);
+    font-size: 5rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .lgn-raised-button.lgn-primary {
