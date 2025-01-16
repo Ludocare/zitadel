@@ -1,5 +1,5 @@
 {{define "user-profile"}} {{if or .LoginName .UserName}}
-<a class="lgn-login-profile" href="{{ loginUrl }}">
+<a class="lgn-login-profile" href="{{ loginNameChangeUrl .AuthReqID }}">
   <div class="lgn-profile-image"></div>
   <div class="lgn-names">
     <div class="inline-block">
