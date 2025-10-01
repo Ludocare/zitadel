@@ -1,3 +1,4 @@
 *
 !build/zitadel/entrypoint.sh
+!build/zitadel/infisical-entrypoint.sh
 !zitadel

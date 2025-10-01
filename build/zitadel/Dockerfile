@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 COPY build/zitadel/entrypoint.sh /app/original-entrypoint.sh
-COPY build/infisical-entrypoint.sh /app/entrypoint.sh
+COPY build/zitadel/infisical-entrypoint.sh /app/entrypoint.sh
 COPY zitadel /app/zitadel
 
 
