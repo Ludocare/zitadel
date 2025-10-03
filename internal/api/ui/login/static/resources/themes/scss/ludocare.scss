@@ -1,8 +1,8 @@
 /*********************** SPECIFIC LUDOCARE *********************/
 :root {
-  --zitadel-color-text: rgb(93, 129, 255) !important;
-  --zitadel-color-second-text: #3d4859 !important;
-  --zitadel-color-text-500: rgb(93, 129, 255) !important;
+  --zitadel-color-text: #1D1D1F !important;
+  --zitadel-color-second-text: #1D1D1F !important;
+  --zitadel-color-text-500: #1D1D1F !important;
 }
 
 #ludo-popin {
@@ -11,13 +11,13 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: white;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   width: 340px;
   z-index: 1000;
   color: var(--zitadel-color-second-text);
+  background-color: white;
 
   h2 {
     margin-top: 0;
@@ -50,7 +50,7 @@ body .lgn-grow {
   display: flex;
   
   .lgn-max-width-wrapper {
-    background: white;
+    background: #F2F2F6;
     border-radius: 20px;
     margin-top: 50px !important;
     align-self: center;
@@ -61,7 +61,7 @@ body .lgn-grow {
 #ludo-circle {
   height: 180px;
   width: 180px;
-  background-color: white;
+  background-color: #F2F2F6;
   position: absolute;
   top: -50px;
   border-radius: 100px;
@@ -76,16 +76,30 @@ body .lgn-grow {
   }
 }
 
-.lgn-icon-button.lgn-left-action {
-  top: -20px;
-}
-
 .lgn-head {
+
+  h1 {
+    font-size: 1.25rem !important;
+    font-weight: 650 !important;
+    color: var(--zitadel-color-primart) !important;
+  }
 
   p {
     color: var(--zitadel-color-second-text);
   }
   
+  .lgn-login-profile {
+    display: block;
+    background: white;
+    border-radius: 12px;
+
+    .lgn-names {
+      margin-bottom: 1rem;
+      border: 0;
+      padding: 6px;
+    }
+  }
+
   #countdown {
     color: var(--zitadel-color-text);
     font-size: 4rem;
@@ -107,11 +121,26 @@ body .lgn-grow {
 .lgn-checkbox,
 .lgn-field {
   color: var(--zitadel-color-second-text);
+  font-size: 1rem !important;
+  margin-left: 15px !important;
 }
 
-input.lgn-input {
-  color: var(--zitadel-color-second-text);
-  border-radius: 1rem;
+
+.lgn-suffix-wrapper {
+  input.lgn-input {
+    color: var(--zitadel-color-second-text);
+    border-radius: 12px !important;
+    padding: 12px 16px !important;
+    border: 0 !important;
+    background: #FFFFFF !important;
+    font-size: 1rem !important;
+    height: 48px !important;
+  }
+}
+
+.lgn-label {
+  font-weight: 575 !important;
+  color: #838387 !important;
 }
 
 :where([autocomplete="one-time-code"]) {
@@ -123,12 +152,12 @@ input.lgn-input {
   all: unset !important;
   background: linear-gradient(
       90deg,
-      var(--otp-bg, #bbb) calc(var(--otp-gap) * var(--otp-ls)),
+      var(--otp-bg, #E1FAFD) calc(var(--otp-gap) * var(--otp-ls)),
       transparent 0
     ),
     linear-gradient(
       90deg,
-      var(--otp-bg, #eee) calc(var(--otp-gap) * var(--otp-ls)),
+      var(--otp-bg, #fff) calc(var(--otp-gap) * var(--otp-ls)),
       transparent 0
     ) !important;
   background-position: calc(var(--_otp-digit) * var(--_otp-bgsz)) 0, 0 0 !important;
