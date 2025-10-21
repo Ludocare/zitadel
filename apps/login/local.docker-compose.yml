@@ -1,0 +1,41 @@
+services:
+    zitadel-login:
+        build:
+            context: .
+            dockerfile: docker/local.node.Dockerfile
+        image: zitadel-login-dev
+        container_name: zitadelLogin
+        environment:
+            - NODE_ENV=development
+            - NEXT_PUBLIC_BASE_PATH=/ui/v2/login
+            - PORT=3000
+            # Zitadel configuration (required for service URL determination)
+            - ZITADEL_API_URL=https://idp.uat.ludocare.com
+            - "ZITADEL_SERVICE_USER_TOKEN=uS4NJsq245WqNmD1wDvH84H5L_6hlrettS_YSZCzcxfo4u8fHJM88Hi0a6OiBlQHFmCYjC8"
+            - EMAIL_VERIFICATION=true
+        ports:
+            - "3021:3000"
+        networks:
+            - zitadel
+        volumes:
+            - ./:/var/www/frontend
+            - /var/www/frontend/node_modules
+            - /var/www/frontend/.next
+        restart: unless-stopped
+        # Add DNS servers to help with external domain resolution
+        dns:
+            - 8.8.8.8
+            - 1.1.1.1
+        # Add extra hosts if needed for development
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        healthcheck:
+            test: ["CMD", "curl", "-f", "http://localhost:3000/ui/v2/login/healthy"]
+            interval: "10s"
+            timeout: "30s"
+            retries: 5
+            start_period: "10s"
+
+networks:
+    zitadel:
+        name: zitadel

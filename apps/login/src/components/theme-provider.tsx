@@ -6,9 +6,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   return (
     <ThemeP
       attribute="class"
-      defaultTheme="system"
+      defaultTheme="light"
+      enableSystem={false}
+      forcedTheme="light"
       storageKey="cp-theme"
-      value={{ dark: "dark" }}
+      value={{ light: "light" }}
     >
       {children}
     </ThemeP>

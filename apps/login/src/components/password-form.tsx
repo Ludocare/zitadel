@@ -153,12 +153,10 @@ export function PasswordForm({ loginSettings, loginName, organization, defaultOr
         </div>
       )}
 
-      <div className="mt-8 flex w-full flex-row items-center">
-        <BackButton data-testid="back-button" />
-        <span className="flex-grow"></span>
+      <div className="mt-10 flex w-full flex-col items-center gap-2">
         <Button
           type="submit"
-          className="self-end"
+          className="self-end w-full"
           variant={ButtonVariants.Primary}
           disabled={loading || !formState.isValid}
           onClick={handleSubmit(submitPassword)}
@@ -166,6 +164,7 @@ export function PasswordForm({ loginSettings, loginName, organization, defaultOr
         >
           {loading && <Spinner className="mr-2 h-5 w-5" />} <Translated i18nKey="verify.submit" namespace="password" />
         </Button>
+        <BackButton data-testid="back-button" />
       </div>
     </form>
   );

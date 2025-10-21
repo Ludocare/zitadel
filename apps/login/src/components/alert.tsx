@@ -15,10 +15,10 @@ export enum AlertType {
   INFO,
 }
 
-const yellow =
-  "border-yellow-600/40 dark:border-yellow-500/20 bg-yellow-200/30 text-yellow-600 dark:bg-yellow-700/20 dark:text-yellow-200";
-// const red =
-  "border-red-600/40 dark:border-red-500/20 bg-red-200/30 text-red-600 dark:bg-red-700/20 dark:text-red-200";
+// const yellow =
+//   "border-yellow-600/40 dark:border-yellow-500/20 bg-yellow-200/30 text-yellow-600 dark:bg-yellow-700/20 dark:text-yellow-200";
+const orange =
+  "border-orange-600/40 dark:border-orange-500/20 bg-orange-200/30 text-orange-600 dark:bg-orange-700/20 dark:text-orange-200";
 const neutral =
   "border-divider-light dark:border-divider-dark bg-black/5 text-gray-600 dark:bg-white/10 dark:text-gray-200";
 
@@ -26,9 +26,9 @@ export function Alert({ children, type = AlertType.ALERT }: Props) {
   return (
     <div
       className={clsx(
-        "flex scroll-px-40 flex-row items-center justify-center rounded-md border py-2 pr-2",
+        "flex scroll-px-40 flex-row w-full items-center justify-center rounded-md border py-2 pr-2",
         {
-          [yellow]: type === AlertType.ALERT,
+          [orange]: type === AlertType.ALERT,
           [neutral]: type === AlertType.INFO,
         },
       )}
