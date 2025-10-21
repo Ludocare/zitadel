@@ -32,23 +32,25 @@ export default getRequestConfig(async () => {
 
   const i18nOrganization = _headers.get("x-zitadel-i18n-organization") || ""; // You may need to set this header in middleware
 
-  let translations: JsonObject | {} = {};
-  try {
-    const i18nJSON = await getHostedLoginTranslation({ serviceConfig, locale,
-      organization: i18nOrganization,
-    });
+  // Force local translation usage for debugging
+  // let translations: JsonObject | {} = {};
+  // try {
+  //   const i18nJSON = await getHostedLoginTranslation({ serviceConfig, locale,
+  //     organization: i18nOrganization,
+  //   });  
+  //
+  //   if (i18nJSON) {
+  //     translations = i18nJSON;
+  //   }
+  // } catch (error) {
+  //   console.warn("Error fetching custom translations:", error);
+  // }
 
-    if (i18nJSON) {
-      translations = i18nJSON;
-    }
-  } catch (error) {
-    console.warn("Error fetching custom translations:", error);
-  }
-
-  const customMessages = translations;
+  const customMessages = {};
   const localeMessages = (await import(`../../locales/${locale}.json`)).default;
-  const fallbackMessages = (await import(`../../locales/${fallback}.json`))
-    .default;
+  const fallbackMessages = (await import(`../../locales/${fallback}.json`)).default;
+
+  console.log('Loaded localeMessages:', localeMessages);
 
   return {
     locale,
