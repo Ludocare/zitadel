@@ -86,12 +86,23 @@ html {
     }
 
     label {
+      div.text-warn-light-500 {
+        span {
+          color: var(--theme-light-warn-500);
+          padding-left: 16px;
+          font-size: 0.7rem;
+        }
+      }
+
       span {
         color:#838387;
         font-weight: 500;
         font-size: 1rem;
         padding-left: 16px;
-        
+
+        &.text-warn-light-500 {
+          color: var(--theme-light-warn-500);
+        }
       }
 
       input {
