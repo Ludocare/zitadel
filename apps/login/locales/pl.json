@@ -31,7 +31,8 @@
       "loginname": "Login",
       "username": "Nazwa użytkownika",
       "usernameOrPhoneNumber": "Nazwa użytkownika lub numer telefonu",
-      "usernameOrEmail": "Nazwa użytkownika lub e-mail"
+      "usernameOrEmail": "Nazwa użytkownika lub e-mail",
+      "email": "E-mail"
     },
     "required": {
       "loginName": "To pole jest wymagane"

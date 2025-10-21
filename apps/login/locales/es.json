@@ -31,7 +31,8 @@
       "loginname": "Nombre de inicio de sesión",
       "username": "Nombre de usuario",
       "usernameOrPhoneNumber": "Nombre de usuario o número de teléfono",
-      "usernameOrEmail": "Nombre de usuario o correo electrónico"
+      "usernameOrEmail": "Nombre de usuario o correo electrónico",
+      "email": "Correo electrónico"
     },
     "required": {
       "loginName": "Este campo es obligatorio"

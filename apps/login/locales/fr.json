@@ -23,15 +23,16 @@
     }
   },
   "loginname": {
-    "title": "Bienvenue!",
+    "title": "Connectez-vous à votre compte",
     "description": "Entrez vos données de connexion.",
-    "register": "Enregistrer un nouveau compte",
+    "register": "Enregistrer un nouvel utilisateur",
     "submit": "Continuer",
     "labels": {
-      "loginname": "Identifiant",
+      "loginname": "Nom d'utilisateur",
       "username": "Nom d'utilisateur",
       "usernameOrPhoneNumber": "Nom d'utilisateur ou numéro de téléphone",
-      "usernameOrEmail": "Nom d'utilisateur ou e-mail"
+      "usernameOrEmail": "Nom d'utilisateur ou email",
+      "email": "E-mail"
     },
     "required": {
       "loginName": "Ce champ est requis"
@@ -47,7 +48,7 @@
       "userNotFound": "Utilisateur non trouvé dans le système",
       "couldNotCreateSession": "Impossible de créer une session pour l'utilisateur",
       "initialUserNotSupported": "Utilisateur initial non pris en charge",
-      "usernamePasswordNotAllowed": "L'identifiant et le mot de passe ne sont pas autorisés ! Contactez votre administrateur pour plus d'informations.",
+      "usernamePasswordNotAllowed": "Nom d'utilisateur/mot de passe non autorisé ! Contactez votre administrateur pour plus d'informations.",
       "passkeysNotAllowed": "Les clés d'accès ne sont pas autorisées ! Contactez votre administrateur pour plus d'informations.",
       "couldNotFindIdentityProvider": "Impossible de trouver le fournisseur d'identité.",
       "userNotActive": "L'utilisateur n'est pas actif. Contactez votre administrateur pour plus d'informations."
@@ -62,9 +63,9 @@
   },
   "password": {
     "verify": {
-      "title": "Mot de passe",
+      "title": "Connectez-vous à votre compte",
       "description": "Entrez votre mot de passe.",
-      "resetPassword": "Réinitialiser mot de passe",
+      "resetPassword": "Réinitialiser le mot de passe",
       "submit": "Continuer",
       "labels": {
         "password": "Mot de passe"
