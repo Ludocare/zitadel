@@ -50,8 +50,6 @@ export default getRequestConfig(async () => {
   const localeMessages = (await import(`../../locales/${locale}.json`)).default;
   const fallbackMessages = (await import(`../../locales/${fallback}.json`)).default;
 
-  console.log('Loaded localeMessages:', localeMessages);
-
   return {
     locale,
     messages: deepmerge.all([

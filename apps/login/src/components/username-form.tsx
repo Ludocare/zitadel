@@ -97,6 +97,8 @@ export function UsernameForm({
   } else if (loginSettings?.disableLoginWithPhone) {
     inputLabel = t("labels.usernameOrEmail");
   }
+  // LUDOCARE : Force email as label
+  inputLabel = t("labels.email");
 
   return (
     <form className="w-full">
