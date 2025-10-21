@@ -31,7 +31,8 @@
       "loginname": "Loginname",
       "username": "Username",
       "usernameOrPhoneNumber": "Username or phone number",
-      "usernameOrEmail": "Username or email"
+      "usernameOrEmail": "Username or email",
+      "email": "E-mail"
     },
     "required": {
       "loginName": "This field is required"
