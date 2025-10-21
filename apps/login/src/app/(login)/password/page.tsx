@@ -54,7 +54,7 @@ export default async function Page(props: { searchParams: Promise<Record<string 
     <DynamicTheme branding={branding}>
       <div className="flex flex-col space-y-4">
         <h1>
-          <Translated i18nKey="verify.title" namespace="loginname" />
+          <Translated i18nKey="verify.title" namespace="password" />
         </h1>
         
         {sessionFactors && (
