@@ -46,6 +46,11 @@ export default {
   },
   theme: {
     extend: {
+      // Font families
+      fontFamily: {
+        'figtree': ['var(--font-figtree)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        'primary': ['var(--font-primary)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
       // https://vercel.com/design/color
       fontSize: {
         "12px": "12px",

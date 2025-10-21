@@ -1,0 +1,145 @@
+version: "3"
+
+tasks:
+    default:
+        desc: "List all available tasks"
+        cmds:
+            - task --list-all
+        silent: true
+
+    #  ----- Frontend Dev tasks -----
+
+    install:
+        desc: "Install dependencies"
+        cmds:
+            - pnpm install
+        silent: false
+
+    generate:
+        desc: "Generate gRPC stubs (Note: This script may be missing from package.json)"
+        cmds:
+            - echo "WARNING 'generate' script not found in package.json"
+            - echo "This is typically required for Zitadel development"
+            - echo "You may need to add this script or run the generate command manually"
+            - echo "Standard Zitadel workflow - pnpm install && pnpm generate && pnpm dev"
+        silent: false
+
+    dev-native:
+        desc: "Start native development server (outside Docker) - matches CONTRIBUTING.md"
+        cmds:
+            - echo "Starting native development (as per CONTRIBUTING.md)..."
+            - echo "Note - This requires Node.js v20 and may need pnpm generate first"
+            - pnpm dev
+        silent: false
+
+    setup-native:
+        desc: "Complete native setup as per CONTRIBUTING.md"
+        cmds:
+            - echo "Setting up Zitadel development environment..."
+            - pnpm install
+            - echo "Note - You may need to run 'pnpm generate' if the script exists"
+            - echo "Then run 'task dev-native' to start the development server"
+        silent: false
+
+    build:
+        desc: "Build frontend dev : docker compose build"
+        cmds:
+            - docker compose -f local.docker-compose.yml build
+        silent: false
+
+    cpnode:
+        desc: "Copy node_modules from zitadelLogin : docker cp"
+        cmds:
+            - sudo chown -R {{.USERNAME}}:{{.USERNAME}} ./node_modules/ && docker cp zitadelLogin:/var/www/frontend/node_modules/ ./
+        silent: false
+
+    up:
+        desc: "Start frontend dev : docker compose up"
+        cmds:
+            - docker compose -f local.docker-compose.yml up -d
+        silent: false
+
+    exec:
+        desc: "Exec frontend dev : docker compose exec"
+        cmds:
+            - docker compose -f local.docker-compose.yml exec zitadel-login sh
+        silent: false
+
+    down:
+        desc: "Down frontend dev : docker compose down"
+        cmds:
+            - docker compose -f local.docker-compose.yml down -v
+        silent: false
+
+    logs:
+        desc: "Show frontend logs dev : docker compose logs"
+        cmds:
+            - docker compose -f local.docker-compose.yml logs -f
+        silent: false
+
+    #  ----- Production tasks -----
+
+    build-prod:
+        desc: "Build production image : docker build"
+        cmds:
+            - docker build -f docker/prod.node.Dockerfile -t zitadel-login-prod .
+        silent: false
+
+    run-prod:
+        desc: "Run production container"
+        cmds:
+            - docker run -d --name zitadel-login-prod -p 3001:3000 
+              -e INFISICAL_MACHINE_CLIENT_ID={{.INFISICAL_MACHINE_CLIENT_ID}}
+              -e INFISICAL_MACHINE_CLIENT_SECRET={{.INFISICAL_MACHINE_CLIENT_SECRET}}
+              -e PROJECT_ID={{.PROJECT_ID}}
+              -e INFISICAL_SECRET_ENV={{.INFISICAL_SECRET_ENV}}
+              -e INFISICAL_API_URL={{.INFISICAL_API_URL}}
+              zitadel-login-prod
+        silent: false
+
+    stop-prod:
+        desc: "Stop and remove production container"
+        cmds:
+            - docker stop zitadel-login-prod || true
+            - docker rm zitadel-login-prod || true
+        silent: false
+
+    #  ----- Test tasks -----
+
+    test:
+        desc: "Run unit tests"
+        cmds:
+            - pnpm test:unit
+        silent: false
+
+    test-integration:
+        desc: "Run integration tests"
+        cmds:
+            - pnpm test:integration:login
+        silent: false
+
+    test-acceptance:
+        desc: "Run acceptance tests"
+        cmds:
+            - pnpm test:acceptance
+        silent: false
+
+    #  ----- Utility tasks -----
+
+    lint:
+        desc: "Run linting"
+        cmds:
+            - pnpm lint
+        silent: false
+
+    lint-fix:
+        desc: "Fix linting issues"
+        cmds:
+            - pnpm lint:fix
+        silent: false
+
+    clean:
+        desc: "Clean build artifacts and dependencies"
+        cmds:
+            - pnpm clean
+        silent: false
