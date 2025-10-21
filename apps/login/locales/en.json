@@ -23,7 +23,7 @@
     }
   },
   "loginname": {
-    "title": "Welcome back!",
+    "title": "Connect to your account",
     "description": "Enter your login data.",
     "register": "Register new user",
     "submit": "Continue",
@@ -62,7 +62,7 @@
   },
   "password": {
     "verify": {
-      "title": "Password",
+      "title": "Connect to your account",
       "description": "Enter your password.",
       "resetPassword": "Reset Password",
       "submit": "Continue",

@@ -73,6 +73,10 @@ html {
 
   .ludo-form-background {
     background-color: var(--ludo-form-background);
+    
+    > div {
+      border: 0;
+    }
 
     h1,
     .ztdl-h1 {
