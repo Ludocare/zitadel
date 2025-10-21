@@ -1,4 +1,9 @@
 :root {
+  // Font family variables - will be updated by Next.js font loading
+  --font-figtree: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+  --font-primary: var(--font-figtree);
+  
+  // Color variables
   --theme-dark-primary-50: #f1f7fd;
   --theme-dark-primary-contrast-50: hsla(0, 0%, 0%, 0.87);
   --theme-dark-primary-100: #afd1f2;
@@ -171,4 +176,13 @@
   --theme-dark-secondary-text: #ffffffc7;
   --theme-light-text: #000000;
   --theme-light-secondary-text: #000000c7;
+
+  /************************ LUDOCARE ***********************/
+  --ludo-background: var(--theme-light-background-100);
+  --ludo-form-background: var(--theme-light-background-500);
+  --ludo-light-text: #ffffff;
+  @media screen and (max-width: 620px) {
+    --ludo-background: var(--theme-light-background-500);
+  }
+
 }
