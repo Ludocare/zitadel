@@ -3,13 +3,13 @@ import "@/styles/globals.scss";
 import { BackgroundWrapper } from "@/components/background-wrapper";
 import { LanguageProvider } from "@/components/language-provider";
 import { Skeleton } from "@/components/skeleton";
-import { Theme } from "@/components/theme";
 import { ThemeProvider } from "@/components/theme-provider";
 import * as Tooltip from "@radix-ui/react-tooltip";
 import { Figtree } from "next/font/google";
 import { ReactNode, Suspense } from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import ThemeSwitch from "@/components/theme-switch";
 
 const figtree = Figtree({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
@@ -38,7 +38,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                       <div className="h-40"></div>
                     </Skeleton>
                     <div className="flex flex-row items-center justify-end space-x-4 py-4">
-                      <Theme />
+                      <ThemeSwitch />
                     </div>
                   </div>
                 </BackgroundWrapper>
