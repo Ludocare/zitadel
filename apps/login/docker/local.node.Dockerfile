@@ -8,31 +8,39 @@ RUN corepack enable && COREPACK_ENABLE_DOWNLOAD_PROMPT=0 corepack prepare pnpm@1
     apk add --no-cache curl sudo && \
     rm -rf /var/cache/apk/*
 
-RUN mkdir -p /var/www/frontend/node_modules \
-    && mkdir -p /var/www/frontend/.next \
+RUN mkdir -p /workspace/apps/login/node_modules \
+    && mkdir -p /workspace/apps/login/.next \
     && addgroup --system --gid 1001 nodejs \
     && adduser --system --uid 1001 nextjs \
     && echo "nextjs ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers \
-    && chown -R nextjs:nodejs /var/www/frontend
+    && chown -R nextjs:nodejs /workspace
 
-WORKDIR /var/www/frontend
+WORKDIR /workspace/apps/login
 
-COPY --chown=nextjs:nodejs package.json pnpm-lock.yaml ./
+COPY --chown=nextjs:nodejs pnpm-workspace.yaml /workspace/pnpm-workspace.yaml
+COPY --chown=nextjs:nodejs packages /workspace/packages
+COPY --chown=nextjs:nodejs proto /workspace/proto
+COPY --chown=nextjs:nodejs apps/login/package.json /workspace/apps/login/package.json
+COPY --chown=nextjs:nodejs apps/login/pnpm-lock.yaml /workspace/apps/login/pnpm-lock.yaml
 
 USER nextjs
 
-RUN --mount=type=cache,id=pnpm,target=/home/nextjs/.local/share/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/home/nextjs/.local/share/pnpm/store pnpm install
+RUN pnpm --filter @zitadel/proto run generate && pnpm --filter @zitadel/client run build
+USER root
 
-COPY --chown=nextjs:nodejs tsconfig.json next.config.mjs postcss.config.cjs tailwind.config.mjs ./
-COPY --chown=nextjs:nodejs ./src ./src
-COPY --chown=nextjs:nodejs ./public ./public
-COPY --chown=nextjs:nodejs ./locales ./locales
-COPY --chown=nextjs:nodejs ./constants ./constants
+COPY --chown=nextjs:nodejs apps/login/tsconfig.json /workspace/apps/login/tsconfig.json
+COPY --chown=nextjs:nodejs apps/login/next.config.mjs /workspace/apps/login/next.config.mjs
+COPY --chown=nextjs:nodejs apps/login/postcss.config.cjs /workspace/apps/login/postcss.config.cjs
+COPY --chown=nextjs:nodejs apps/login/tailwind.config.mjs /workspace/apps/login/tailwind.config.mjs
+COPY --chown=nextjs:nodejs apps/login/src /workspace/apps/login/src
+COPY --chown=nextjs:nodejs apps/login/public /workspace/apps/login/public
+COPY --chown=nextjs:nodejs apps/login/locales /workspace/apps/login/locales
+COPY --chown=nextjs:nodejs apps/login/constants /workspace/apps/login/constants
 
 ENV INFRA_ENV=development
 
-# Create an entrypoint script to handle permissions
-COPY --chown=nextjs:nodejs ./docker/dev-entrypoint.sh /dev-entrypoint.sh
+COPY --chown=nextjs:nodejs apps/login/docker/dev-entrypoint.sh /dev-entrypoint.sh
 RUN chmod +x /dev-entrypoint.sh
 
 ENTRYPOINT ["/dev-entrypoint.sh"]

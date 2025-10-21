@@ -49,7 +49,7 @@ export function DynamicTheme({
             const hasLeftRightStructure = childArray.length === 2;
 
             return (
-              <div className="relative mx-auto w-full max-w-[1100px] py-4 px-8">
+              <div className="ludo-form-background relative mx-auto w-full max-w-[1100px] py-4 px-8">
                 <Card>
                   <div className="flex min-h-[400px]">
                     {/* Left side: First child + branding */}
@@ -96,7 +96,7 @@ export function DynamicTheme({
             const hasMultipleChildren = childArray.length > 1;
 
             return (
-              <div className="relative mx-auto w-full max-w-[440px] py-4 px-4">
+              <div className="ludo-form-background relative mx-auto w-full max-w-[440px] py-4 px-4">
                 <Card>
                   <div className="mx-auto flex flex-col items-center space-y-8">
                     <div className="relative flex flex-row items-center justify-center -mb-4">
