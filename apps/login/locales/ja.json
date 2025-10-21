@@ -31,7 +31,8 @@
       "loginname": "ログイン名",
       "username": "ユーザー名",
       "usernameOrPhoneNumber": "ユーザー名または電話番号",
-      "usernameOrEmail": "ユーザー名またはメールアドレス"
+      "usernameOrEmail": "ユーザー名またはメールアドレス",
+      "email": "メールアドレス"
     },
     "required": {
       "loginName": "必須項目です"
