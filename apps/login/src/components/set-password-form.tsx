@@ -192,6 +192,21 @@ export function SetPasswordForm({
     <form className="w-full">
       <div className="mb-4 grid grid-cols-1 gap-4 pt-4">
         {codeRequired && (
+          <div>
+            <TextInput
+              type="text"
+              required
+              {...register("code", {
+                required: t("set.required.code"),
+              })}
+              label={t("set.labels.code")}
+              autoComplete="one-time-code"
+              error={errors.code?.message as string}
+              data-testid="code-text-input"
+            />
+          </div>
+        )}
+        {codeRequired && (
           <Alert type={AlertType.INFO}>
             <div className="flex flex-row">
               <span className="mr-auto flex-1 text-left">
@@ -211,21 +226,6 @@ export function SetPasswordForm({
               </button>
             </div>
           </Alert>
-        )}
-        {codeRequired && (
-          <div>
-            <TextInput
-              type="text"
-              required
-              {...register("code", {
-                required: t("set.required.code"),
-              })}
-              label={t("set.labels.code")}
-              autoComplete="one-time-code"
-              error={errors.code?.message as string}
-              data-testid="code-text-input"
-            />
-          </div>
         )}
         <div>
           <TextInput
@@ -265,10 +265,10 @@ export function SetPasswordForm({
 
       {error && <Alert>{error}</Alert>}
 
-      <div className="mt-8 flex w-full flex-row items-center justify-between">
-        <BackButton data-testid="back-button" />
+      <div className="mt-8 flex w-full flex-col items-center justify-between gap-2">
         <Button
           type="submit"
+          className="self-end w-full"
           variant={ButtonVariants.Primary}
           disabled={
             loading ||
@@ -282,6 +282,7 @@ export function SetPasswordForm({
           {loading && <Spinner className="mr-2 h-5 w-5" />}{" "}
           <Translated i18nKey="set.submit" namespace="password" />
         </Button>
+        <BackButton data-testid="back-button" />
       </div>
     </form>
   );

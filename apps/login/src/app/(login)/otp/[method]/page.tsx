@@ -91,15 +91,6 @@ export default async function Page(props: {
             </Alert>
           </div>
         )}
-
-        {session && (
-          <UserAvatar
-            loginName={loginName ?? session.factors?.user?.loginName}
-            displayName={session.factors?.user?.displayName}
-            showDropdown
-            searchParams={searchParams}
-          ></UserAvatar>
-        )}
       </div>
 
       <div className="w-full">

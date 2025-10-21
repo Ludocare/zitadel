@@ -31,6 +31,15 @@ const secureHeaders = [
   { key: "X-Frame-Options", value: "deny" },
 ];
 
+if (process.env.ZITADEL_API_URL) {
+  imageRemotePatterns.push({
+    protocol: "https",
+    hostname: process.env.ZITADEL_API_URL?.replace("https://", "") || "",
+    port: "",
+    pathname: "/**",
+  });
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   basePath: process.env.NEXT_PUBLIC_BASE_PATH,
