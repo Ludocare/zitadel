@@ -1,8 +1,8 @@
 services:
     zitadel-login:
         build:
-            context: .
-            dockerfile: docker/local.node.Dockerfile
+            context: ../..   # instead of .
+            dockerfile: ./apps/login/docker/local.node.Dockerfile
         image: zitadel-login-dev
         container_name: zitadelLogin
         environment:
@@ -18,7 +18,7 @@ services:
         networks:
             - zitadel
         volumes:
-            - ./:/var/www/frontend
+            - ../..:/workspace
             - /var/www/frontend/node_modules
             - /var/www/frontend/.next
         restart: unless-stopped
