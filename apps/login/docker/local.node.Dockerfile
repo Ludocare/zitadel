@@ -21,7 +21,6 @@ COPY --chown=nextjs:nodejs pnpm-workspace.yaml /workspace/pnpm-workspace.yaml
 COPY --chown=nextjs:nodejs packages /workspace/packages
 COPY --chown=nextjs:nodejs proto /workspace/proto
 COPY --chown=nextjs:nodejs apps/login/package.json /workspace/apps/login/package.json
-COPY --chown=nextjs:nodejs apps/login/pnpm-lock.yaml /workspace/apps/login/pnpm-lock.yaml
 
 USER nextjs
 
