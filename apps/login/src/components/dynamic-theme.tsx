@@ -96,7 +96,7 @@ export function DynamicTheme({
             const hasMultipleChildren = childArray.length > 1;
 
             return (
-              <div className="ludo-form-background relative mx-auto w-full max-w-[440px] py-4 px-4">
+              <div className="ludo-form-background relative mx-auto w-full max-w-[440px]">
                 <Card>
                   <div className="mx-auto flex flex-col items-center space-y-8">
                     <div className="relative flex flex-row items-center justify-center -mb-4">
