@@ -387,7 +387,9 @@
       "couldNotCreateSession": "Impossible de créer la session",
       "noHostFound": "Aucun hôte trouvé",
       "userAlreadyVerified": "L'utilisateur est déjà vérifié !",
-      "couldNotResendInvite": "Impossible de renvoyer l'invitation"
+      "couldNotResendInvite": "Impossible de renvoyer l'invitation",
+      "inviteSendFailed": "Échec de l'envoi de l'email d'invitation",
+      "emailSendFailed": "Échec de l'envoi de l'email de vérification"
     }
   },
   "authenticator": {
