@@ -54,7 +54,7 @@ export default async function Page(props: { searchParams: Promise<Record<string 
     </DynamicTheme>
   ) : loginSettings?.allowRegister && loginSettings.allowUsernamePassword ? (
     <DynamicTheme branding={branding}>
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-4 w-full">
         <h1>
           <Translated i18nKey="password.title" namespace="register" />
         </h1>
@@ -78,7 +78,7 @@ export default async function Page(props: { searchParams: Promise<Record<string 
     </DynamicTheme>
   ) : (
     <DynamicTheme branding={branding}>
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-4 w-full">
         <h1>
           <Translated i18nKey="disabled.title" namespace="register" />
         </h1>

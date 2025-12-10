@@ -19,9 +19,9 @@ services:
       DEVCONTAINER_DB_API_INTEGRATION_HOST: db-api-integration
       DEVCONTAINER_DB_FUNCTIONAL_UI_HOST: db-functional-ui
     ports:
-      - "8080:8080"
-      - "3000:3000"
-      - "4200:4200"
+      - "28080:8080"
+      - "23000:3000"
+      - "24200:4200"
 
   db:
     image: postgres:17
@@ -37,7 +37,7 @@ services:
       retries: 5
       start_period: "20s"
     ports:
-      - 5432:5432
+      - 25432:5432
 
   db-api-integration:
     image: 'postgres:17'
@@ -53,12 +53,12 @@ services:
       retries: 5
       start_period: '20s'
     ports:
-      - 5433:5433
+      - 25433:5433
 
   cache-api-integration:
     image: 'redis:8'
     ports:
-      - 6379:6379
+      - 26379:6379
 
   db-functional-ui:
     image: 'postgres:17'
@@ -73,7 +73,7 @@ services:
       retries: 5
       start_period: '20s'
     ports:
-      - "5434:5434"
+      - "25434:5434"
 
   login-api-mock:
     build:

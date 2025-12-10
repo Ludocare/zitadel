@@ -178,7 +178,7 @@ import { DynamicTheme } from "@/components/dynamic-theme";
 export default function LoginPage() {
   return (
     <DynamicTheme branding={branding}>
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-4 w-full">
         <h1>Login Title</h1>
         <p>Description text</p>
       </div>
