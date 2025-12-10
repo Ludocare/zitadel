@@ -34,7 +34,7 @@ export default async function Page(props: {
   // return login failed if no linking or creation is allowed and no user was found
   return (
     <DynamicTheme branding={branding}>
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-4 w-full">
         <h1>
           <Translated i18nKey="title" namespace="ldap" />
         </h1>

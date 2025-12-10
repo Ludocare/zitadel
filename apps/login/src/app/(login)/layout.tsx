@@ -33,7 +33,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 <BackgroundWrapper
                   className={`relative flex min-h-screen flex-col justify-center ludo-background`}
                 >
-                  <div className="relative mx-auto w-full max-w-[440px] py-8">
+                  <div className="relative mx-auto w-full max-w-[440px]">
                     <Skeleton>
                       <div className="h-40"></div>
                     </Skeleton>
@@ -48,7 +48,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                 <BackgroundWrapper
                   className={`relative flex min-h-screen flex-col justify-center ludo-background`}
                 >
-                  <div className="relative mx-auto w-full max-w-[1100px] py-8">
+                  <div className="relative mx-auto w-full max-w-[1100px]">
                     {children}
                   </div>
                 </BackgroundWrapper>
