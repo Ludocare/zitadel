@@ -195,6 +195,23 @@
       "description": "Nous n'avons pas pu terminer le processus d'inscription.",
       "info": "Impossible de déterminer l'organisation pour l'inscription. Veuillez contacter votre administrateur pour obtenir de l'aide.",
       "backToLogin": "Retour à la connexion"
+    },
+    "processing": {
+      "message": "Traitement de l'authentification...",
+      "noRedirect": "Aucune redirection ou erreur retournée par le serveur",
+      "unexpectedError": "Une erreur inattendue s'est produite"
+    },
+    "errors": {
+      "missingParameters": "Paramètres requis manquants",
+      "missingIdpInfo": "Informations IDP manquantes",
+      "idpNotFound": "Fournisseur d'identité non trouvé",
+      "linkingNotAllowed": "La liaison n'est pas autorisée pour ce fournisseur d'identité",
+      "linkingFailed": "Échec de la liaison du fournisseur d'identité au compte",
+      "autoLinkingFailed": "Échec de la liaison automatique du compte",
+      "userCreationFailed": "Échec de la création du compte utilisateur",
+      "orgResolutionFailed": "Impossible de déterminer l'organisation pour l'inscription",
+      "sessionCreationFailed": "Impossible de créer la session ou de déterminer la redirection",
+      "unknownError": "Une erreur inconnue s'est produite"
     }
   },
   "ldap": {
@@ -258,7 +275,20 @@
       "title": "Authentifiez-vous avec une clé d'accès",
       "description": "Votre appareil vous demandera votre empreinte digitale, votre visage ou le verrouillage de l'écran",
       "usePassword": "Utiliser le mot de passe",
-      "submit": "Continuer"
+      "submit": "Continuer",
+      "errors": {
+        "couldNotRequestChallenge": "Impossible de demander le challenge de la clé d'accès",
+        "couldNotVerifyPasskey": "Impossible de vérifier la clé d'accès",
+        "noResponseReceived": "La vérification de la clé d'accès a échoué - aucune réponse reçue",
+        "noRedirectProvided": "La vérification de la clé d'accès est terminée mais aucune redirection n'a été fournie",
+        "couldNotRetrievePasskey": "Une erreur s'est produite lors de la récupération de la clé d'accès",
+        "verificationCancelled": "La vérification de la clé d'accès a été annulée",
+        "verificationFailed": "Une erreur s'est produite lors de la vérification de la clé d'accès",
+        "couldNotFindSession": "Impossible de trouver la session",
+        "couldNotUpdateSession": "Impossible de mettre à jour la session",
+        "userNotFound": "Utilisateur non trouvé dans le système",
+        "couldNotDetermineRedirect": "Impossible de déterminer l'URL de redirection après la vérification de la clé d'accès"
+      }
     },
     "set": {
       "title": "Configurer une clé d'accès",
@@ -431,6 +461,7 @@
     "unknownContext": "Impossible d'obtenir le contexte de l'utilisateur. Assurez-vous de saisir d'abord le nom d'utilisateur ou de fournir un loginName comme paramètre de recherche.",
     "sessionExpired": "Votre session a expiré. Veuillez vous reconnecter.",
     "failedLoading": "Échec du chargement des données. Veuillez réessayer.",
-    "tryagain": "Réessayer"
+    "tryagain": "Réessayer",
+    "couldNotContinueSession": "Impossible de continuer avec la session - informations utilisateur manquantes"
   }
 }
