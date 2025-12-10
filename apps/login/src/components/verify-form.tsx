@@ -123,11 +123,17 @@ export function VerifyForm({
   return (
     <>
       <form className="w-full">
-        <Alert type={AlertType.INFO}>
-          <div className="flex flex-row">
-            <span className="mr-auto flex-1 text-left">
-              <Translated i18nKey="verify.noCodeReceived" namespace="verify" />
-            </span>
+        <div className="mt-4">
+          <TextInput
+            type="text"
+            autoComplete="one-time-code"
+            {...register("code", { required: t("verify.required.code") })}
+            label={t("verify.labels.code")}
+            data-testid="code-text-input"
+          />
+        </div>
+        <div className="w-full">  
+          <div className="flex flex-row justify-end pt-1">
             <button
               aria-label="Resend Code"
               disabled={loading}
@@ -141,15 +147,6 @@ export function VerifyForm({
               <Translated i18nKey="verify.resendCode" namespace="verify" />
             </button>
           </div>
-        </Alert>
-        <div className="mt-4">
-          <TextInput
-            type="text"
-            autoComplete="one-time-code"
-            {...register("code", { required: t("verify.required.code") })}
-            label={t("verify.labels.code")}
-            data-testid="code-text-input"
-          />
         </div>
 
         {error && (
@@ -158,20 +155,18 @@ export function VerifyForm({
           </div>
         )}
 
-        <div className="mt-8 flex w-full flex-row items-center">
-          <BackButton />
-          <span className="flex-grow"></span>
+        <div className="mt-8 flex w-full flex-col items-center gap-2">
           <Button
             type="submit"
-            className="self-end"
+            className="self-end w-full"
             variant={ButtonVariants.Primary}
             disabled={loading || !formState.isValid}
             onClick={handleSubmit(fcn)}
             data-testid="submit-button"
           >
-            {loading && <Spinner className="mr-2 h-5 w-5" />}
-            <Translated i18nKey="verify.submit" namespace="verify" />
+            {loading && <Spinner className="mr-2 h-5 w-5" />} <Translated i18nKey="verify.submit" namespace="otp" />
           </Button>
+          <BackButton data-testid="back-button" />
         </div>
       </form>
     </>

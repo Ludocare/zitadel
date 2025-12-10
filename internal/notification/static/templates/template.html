@@ -57,7 +57,7 @@
   {{if .FontURL}}
   <style>
     @font-face {
-      font-family: '{{.FontFaceFamily}}';
+      font-family: ''{{.FontFaceFamily}}'';
       font-style: normal;
       font-display: swap;
       src: url({{.FontURL}});
@@ -259,7 +259,7 @@
                                           </td>
                                         </tr>
 
-                                        {{if ne .MsgType "VerifyEmail"}}
+                                        {{if and (ne .MsgType "VerifyEmail") (ne .MsgType "VerifyEmailOTP") (ne .MsgType "InviteUser")}}
                                         <tr>
                                           <td
                                                   align="center" vertical-align="middle" class="shadow" style="font-size:0px;padding:10px 25px;word-break:break-word;"

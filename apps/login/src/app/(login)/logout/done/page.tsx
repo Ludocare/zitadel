@@ -17,7 +17,7 @@ export default async function Page(props: { searchParams: Promise<any> }) {
 
   return (
     <DynamicTheme branding={branding}>
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-4 w-full">
         <h1>
           <Translated i18nKey="success.title" namespace="logout" />
         </h1>
