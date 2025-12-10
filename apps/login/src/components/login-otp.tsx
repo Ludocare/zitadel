@@ -215,14 +215,19 @@ export function LoginOTP({ host, loginName, sessionId, requestId, organization, 
 
   return (
     <form className="w-full">
+      <div className="mt-4">
+        <TextInput
+          type="text"
+          {...register("code", { required: t("verify.required.code") })}
+          label={t("verify.labels.code")}
+          autoComplete="one-time-code"
+          data-testid="code-text-input"
+        />
+      </div>
       {["email", "sms"].includes(method) && (
-        <Alert type={AlertType.INFO}>
-          <div className="flex flex-row">
-            <span className="mr-auto flex-1 text-left">
-              <Translated i18nKey="verify.noCodeReceived" namespace="otp" />
-            </span>
+          <div className="flex flex-row justify-end pt-1">
             <button
-              aria-label="Resend OTP Code"
+              aria-label="Resend Code"
               disabled={loading}
               type="button"
               className="ml-4 cursor-pointer text-primary-light-500 hover:text-primary-light-400 disabled:cursor-default disabled:text-gray-400 dark:text-primary-dark-500 hover:dark:text-primary-dark-400 dark:disabled:text-gray-700"
@@ -239,20 +244,10 @@ export function LoginOTP({ host, loginName, sessionId, requestId, organization, 
               }}
               data-testid="resend-button"
             >
-              <Translated i18nKey="verify.resendCode" namespace="otp" />
+              <Translated i18nKey="verify.resendCode" namespace="verify" />
             </button>
           </div>
-        </Alert>
       )}
-      <div className="mt-4">
-        <TextInput
-          type="text"
-          {...register("code", { required: t("verify.required.code") })}
-          label={t("verify.labels.code")}
-          autoComplete="one-time-code"
-          data-testid="code-text-input"
-        />
-      </div>
 
       {error && (
         <div className="py-4" data-testid="error">

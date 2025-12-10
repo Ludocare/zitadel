@@ -22,7 +22,7 @@ export default async function LinkingFailedPage(props: {
 
   return (
     <DynamicTheme branding={branding}>
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-4 w-full">
         <h1>
           <Translated i18nKey="linkingFailed.title" namespace="idp" />
         </h1>

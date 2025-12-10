@@ -132,8 +132,12 @@ html {
       }
     }
 
+    button[data-testid="resend-button"],
+    button[data-testid="reset-button"] {
+      font-size: 0.9rem;
+    }
 
-    button[type="button"]:not([aria-label="Resend OTP Code"], [data-testid="reset-button"]) {
+    button[type="button"]:not([data-testid="resend-button"], [data-testid="reset-button"]) {
       background-color: var(--theme-light-background-100);
       border: 0;
       height: 48px;
