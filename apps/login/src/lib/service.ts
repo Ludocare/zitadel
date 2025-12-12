@@ -35,6 +35,10 @@ export async function createServiceForHost<T extends ServiceClass>(service: T, s
     );
   }
 
+  if (!token) {
+    throw new Error("Failed to retrieve authentication token");
+  }
+
   if (!serviceConfig) {
     throw new Error("No service config found");
   }
