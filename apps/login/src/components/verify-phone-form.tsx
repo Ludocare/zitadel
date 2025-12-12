@@ -1,7 +1,7 @@
 "use client";
 
-import { Alert, AlertType } from "@/components/alert";
-import { resendVerification, sendVerification } from "@/lib/server/verify";
+import { Alert } from "@/components/alert";
+import { resendPhoneVerification, sendPhoneVerification } from "@/lib/server/verify";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
@@ -21,19 +21,15 @@ type Props = {
   loginName?: string;
   organization?: string;
   code?: string;
-  isInvite: boolean;
   requestId?: string;
-  isPhoneVerification?: boolean;
 };
 
-export function VerifyForm({
+export function VerifyPhoneForm({
   userId,
   loginName,
   organization,
   requestId,
   code,
-  isInvite,
-  isPhoneVerification = false,
 }: Props) {
   const router = useRouter();
 
@@ -54,17 +50,11 @@ export function VerifyForm({
     setError("");
     setLoading(true);
 
-    const response = await resendVerification({
+    const response = await resendPhoneVerification({
       userId,
-      isInvite: isInvite,
-      isPhoneVerification: isPhoneVerification,
     })
       .catch(() => {
-        setError(
-          isPhoneVerification
-            ? t("errors.couldNotResendPhone")
-            : t("errors.couldNotResendEmail")
-        );
+        setError(t("errors.couldNotResendPhone"));
         return;
       })
       .finally(() => {
@@ -85,14 +75,12 @@ export function VerifyForm({
     ): Promise<boolean | void> {
       setLoading(true);
 
-      const response = await sendVerification({
+      const response = await sendPhoneVerification({
         code: value.code,
         userId,
-        isInvite: isInvite,
         loginName: loginName,
         organization: organization,
         requestId: requestId,
-        isPhoneVerification: isPhoneVerification,
       })
         .catch(() => {
           setError(t("errors.couldNotVerifyUser"));
@@ -111,7 +99,7 @@ export function VerifyForm({
         return router.push(response?.redirect);
       }
     },
-    [isInvite, userId, isPhoneVerification],
+    [userId, loginName, organization, requestId, t, router],
   );
 
   useEffect(() => {
