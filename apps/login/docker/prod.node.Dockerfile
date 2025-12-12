@@ -46,7 +46,7 @@ FROM node:24-alpine AS runner
 
 RUN apk update && \
     apk add --no-cache curl bash && \
-    curl -1sLf 'https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.alpine.sh' | bash && \
+    curl -1sLf 'https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.alpine.sh' | distro=alpine version=3.22.2 bash && \
     apk add --no-cache infisical && \
     rm -rf /var/cache/apk/*
 
