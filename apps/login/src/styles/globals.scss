@@ -127,6 +127,8 @@ html {
         font-weight: 450;
       }
 
+      background-color: var(--theme-light-primary-500);
+
       &:disabled {
         background-color: #D2D2D7;
       }
