@@ -262,8 +262,16 @@ export async function sendLoginname(command: SendLoginnameCommand) {
 
     // if user has no auth method set
     if (!methods.authMethodTypes || !methods.authMethodTypes.length) {
-      // If email is already verified, redirect directly to authenticator setup
+      // If email is already verified, check phone verification before proceeding to authenticator setup
       if (humanUser?.email?.isVerified) {
+        // Check if phone verification is needed
+        const { checkPhoneVerification } = await import("../verify-helper");
+        const phoneVerificationCheck = checkPhoneVerification(session, humanUser, organization, command.requestId);
+        
+        if (phoneVerificationCheck?.redirect) {
+          return phoneVerificationCheck;
+        }
+
         const params = new URLSearchParams({
           sessionId: session.id,
           initial: "true",
