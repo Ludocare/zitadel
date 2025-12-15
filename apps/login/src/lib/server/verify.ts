@@ -121,6 +121,20 @@ export async function sendVerification(command: VerifyUserByEmailCommand) {
   // Load login settings once for reuse
   const loginSettings = await getLoginSettings({ serviceConfig, organization: user.details?.resourceOwner });
 
+  // Helper function to check phone verification (avoid code duplication)
+  async function checkPhoneIfNeeded() {
+    if (!command.isPhoneVerification && user.type.case === "human" && session?.factors?.user?.id) {
+      const humanUser = user.type.value as any;
+      const { checkPhoneVerification } = await import("../verify-helper");
+      const phoneVerificationCheck = checkPhoneVerification(session, humanUser, command.organization, command.requestId);
+      
+      if (phoneVerificationCheck?.redirect) {
+        return phoneVerificationCheck;
+      }
+    }
+    return null;
+  }
+
   // if no authmethods are found on the user, redirect to set one up
   if (authMethodResponse && authMethodResponse.authMethodTypes && authMethodResponse.authMethodTypes.length == 0) {
     if (!sessionCookie) {
@@ -166,6 +180,12 @@ export async function sendVerification(command: VerifyUserByEmailCommand) {
       maxAge: 300, // 5 minutes
     });
 
+    // Before redirecting to authenticator setup, check if phone verification is needed
+    const phoneCheck = await checkPhoneIfNeeded();
+    if (phoneCheck?.redirect) {
+      return phoneCheck;
+    }
+
     // Check if password is the only available authentication method
     const onlyPasswordAllowed = loginSettings?.allowUsernamePassword && 
       loginSettings?.passkeysType !== 1; // PasskeysType.ALLOWED = 1
@@ -206,15 +226,10 @@ export async function sendVerification(command: VerifyUserByEmailCommand) {
     return { redirect: `/verify/success?${verifySuccessParams}` };
   }
 
-  // If we just verified email (not phone or invite), check if phone verification is needed
-  if (!command.isPhoneVerification && !command.isInvite && user.type.case === "human") {
-    const humanUser = user.type.value as any;
-    const { checkPhoneVerification } = await import("../verify-helper");
-    const phoneVerificationCheck = checkPhoneVerification(session, humanUser, command.organization, command.requestId);
-    
-    if (phoneVerificationCheck?.redirect) {
-      return phoneVerificationCheck;
-    }
+  // If we just verified email (not phone), check if phone verification is needed
+  const phoneCheck = await checkPhoneIfNeeded();
+  if (phoneCheck?.redirect) {
+    return phoneCheck;
   }
 
   // redirect to mfa factor if user has one, or redirect to set one up
