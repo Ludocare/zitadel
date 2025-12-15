@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { DEFAULT_CSP } from "../constants/csp";
 import { getServiceConfig } from "./lib/service-url";
 export const config = {
-  matcher: ["/.well-known/:path*", "/oauth/:path*", "/oidc/:path*", "/idps/callback/:path*", "/saml/:path*", "/:path*"],
+  matcher: ["/.well-known/:path*", "/oauth/:path*", "/oidc/:path*", "/idps/callback/:path*", "/saml/:path*", "/assets/:path*", "/:path*"],
 };
 
 async function loadSecuritySettings(request: NextRequest): Promise<SecuritySettings | null> {
@@ -37,7 +37,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // Only run the rest of the logic for the original matcher paths
-  const proxyPaths = ["/.well-known/", "/oauth/", "/oidc/", "/idps/callback/", "/saml/"];
+  const proxyPaths = ["/.well-known/", "/oauth/", "/oidc/", "/idps/callback/", "/saml/", "/assets/"];
 
   const isMatched = proxyPaths.some((prefix) => request.nextUrl.pathname.startsWith(prefix));
 
