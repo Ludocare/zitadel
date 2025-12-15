@@ -261,6 +261,8 @@
       "smsDescription": "Entrez votre numéro de téléphone pour recevoir un code par SMS.",
       "emailDescription": "Entrez votre adresse email pour recevoir un code par email.",
       "totpRegisterDescription": "Scannez le QR Code ou saisissez l'URL manuellement.",
+      "emailOtpAdded": "Code via email was successfully added.",
+      "smsOtpAdded": "Code via SMS was successfully added.",
       "submit": "Continuer",
       "labels": {
         "code": "Code"
