@@ -30,9 +30,11 @@ export async function loadMostRecentSession({ serviceConfig, sessionParams }: Lo
  * to check for mfa for automatically selected session -> const response = await listAuthenticationMethodTypes(userId);
  **/
 export async function isSessionValid({ serviceConfig, session }: { serviceConfig: ServiceConfig; session: Session }): Promise<boolean> {
+  console.log(`[Session Validation] Validating session ${session.id}`);
+  
   // session can't be checked without user
   if (!session.factors?.user) {
-    console.warn("Session has no user");
+    console.warn("[Session Validation] Session has no user");
     return false;
   }
 
@@ -42,6 +44,8 @@ export async function isSessionValid({ serviceConfig, session }: { serviceConfig
   const validIDP = session?.factors?.intent?.verifiedAt;
   const validPassword = session?.factors?.password?.verifiedAt;
   const validPasskey = session?.factors?.webAuthN?.verifiedAt;
+  
+  console.log(`[Session Validation] Auth factors: IDP=${!!validIDP}, Password=${!!validPassword}, Passkey=${!!validPasskey}`);
 
   // Get login settings to determine if MFA is actually required by policy
   const loginSettings = await getLoginSettings({ serviceConfig, organization: session.factors?.user?.organizationId });
@@ -103,19 +107,22 @@ export async function isSessionValid({ serviceConfig, session }: { serviceConfig
 
   if (!stillValid) {
     console.warn(
-      "Session is expired",
+      "[Session Validation] Session is expired",
       session.expirationDate ? timestampDate(session.expirationDate).toDateString() : "no expiration date",
     );
     return false;
   }
 
   const validChecks = !!(validPassword || validPasskey || validIDP);
+  console.log(`[Session Validation] Valid auth checks: ${validChecks}, MFA valid: ${mfaValid}`);
 
   if (!validChecks) {
+    console.warn("[Session Validation] No valid authentication checks (password, passkey, or IDP)");
     return false;
   }
 
   if (!mfaValid) {
+    console.warn("[Session Validation] MFA validation failed");
     return false;
   }
 
@@ -126,11 +133,12 @@ export async function isSessionValid({ serviceConfig, session }: { serviceConfig
     const humanUser = userResponse?.user?.type.case === "human" ? userResponse?.user.type.value : undefined;
 
     if (humanUser && !humanUser.email?.isVerified) {
-      console.warn("Session invalid: Email not verified and EMAIL_VERIFICATION is enabled", session.factors.user.id);
+      console.warn("[Session Validation] Session invalid: Email not verified and EMAIL_VERIFICATION is enabled", session.factors.user.id);
       return false;
     }
   }
 
+  console.log(`[Session Validation] Session ${session.id} is VALID`);
   return true;
 }
 
