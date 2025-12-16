@@ -79,6 +79,27 @@ export async function getHostedLoginTranslation({
   return useCache ? cacheWrapper(callback) : callback;
 }
 
+/**
+ * Helper function to replace the origin in asset URLs with the ZITADEL base URL.
+ * This ensures that logo and icon URLs point to the correct backend server.
+ * Removes the port number to match CSP requirements.
+ */
+function fixAssetUrl(url: string | undefined, zitadelBaseUrl: string): string | undefined {
+  if (!url) return url;
+  
+  try {
+    const urlObj = new URL(url);
+    const zitadelUrl = new URL(zitadelBaseUrl);
+    urlObj.protocol = zitadelUrl.protocol;
+    urlObj.hostname = zitadelUrl.hostname; // Use hostname instead of host to exclude port
+    urlObj.port = ''; // Remove port to match CSP policy
+    return urlObj.toString();
+  } catch (error) {
+    console.warn("Failed to fix asset URL:", url, error);
+    return url;
+  }
+}
+
 export async function getBrandingSettings({
   serviceConfig,
   organization,
@@ -89,7 +110,34 @@ export async function getBrandingSettings({
 
   const callback = settingsService
     .getBrandingSettings({ ctx: makeReqCtx(organization) }, {})
-    .then((resp) => (resp.settings ? resp.settings : undefined));
+    .then((resp) => {
+      if (!resp.settings) return undefined;
+      
+      // Fix asset URLs to use the ZITADEL base URL instead of the login app URL
+      const settings = resp.settings;
+      if (settings.lightTheme?.logoUrl) {
+        const fixedUrl = fixAssetUrl(settings.lightTheme.logoUrl, serviceConfig.baseUrl);
+        if (fixedUrl) settings.lightTheme.logoUrl = fixedUrl;
+      }
+      if (settings.lightTheme?.iconUrl) {
+        const fixedUrl = fixAssetUrl(settings.lightTheme.iconUrl, serviceConfig.baseUrl);
+        if (fixedUrl) settings.lightTheme.iconUrl = fixedUrl;
+      }
+      if (settings.darkTheme?.logoUrl) {
+        const fixedUrl = fixAssetUrl(settings.darkTheme.logoUrl, serviceConfig.baseUrl);
+        if (fixedUrl) settings.darkTheme.logoUrl = fixedUrl;
+      }
+      if (settings.darkTheme?.iconUrl) {
+        const fixedUrl = fixAssetUrl(settings.darkTheme.iconUrl, serviceConfig.baseUrl);
+        if (fixedUrl) settings.darkTheme.iconUrl = fixedUrl;
+      }
+      if (settings.fontUrl) {
+        const fixedUrl = fixAssetUrl(settings.fontUrl, serviceConfig.baseUrl);
+        if (fixedUrl) settings.fontUrl = fixedUrl;
+      }
+      
+      return settings;
+    });
 
   return useCache ? cacheWrapper(callback) : callback;
 }
