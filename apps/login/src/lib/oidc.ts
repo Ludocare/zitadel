@@ -70,12 +70,15 @@ export async function loginWithOIDCAndSession({ serviceConfig, authRequest, sess
         // handle already handled gracefully as these could come up if old emails with requestId are used (reset password, register emails etc.)
         console.error(error);
         if (error && typeof error === "object" && "code" in error && error?.code === 9) {
+          console.log("[OIDC] Auth request already completed (error code 9), session exists");
           const loginSettings = await getLoginSettings({ serviceConfig, organization: selectedSession.factors?.user?.organizationId });
 
           if (loginSettings?.defaultRedirectUri) {
+            console.log("[OIDC] Redirecting directly to defaultRedirectUri:", loginSettings.defaultRedirectUri);
             return { redirect: loginSettings.defaultRedirectUri };
           }
 
+          console.log("[OIDC] No defaultRedirectUri, redirecting to signedin page");
           const signedinUrl = "/signedin";
 
           const params = new URLSearchParams();

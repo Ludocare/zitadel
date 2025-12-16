@@ -37,10 +37,13 @@ export async function GET(request: NextRequest) {
   }
 
   const sessionCookies = await getAllSessions();
+  console.log(`[Login Route] Found ${sessionCookies.length} session cookie(s) for requestId: ${requestId}`);
+  
   const ids = sessionCookies.map((s) => s.id);
   let sessions: Session[] = [];
   if (ids && ids.length) {
     sessions = await loadSessions({ serviceConfig, ids });
+    console.log(`[Login Route] Loaded ${sessions.length} session(s) from ZITADEL API`);
   }
 
   // Flow initiation - delegate to appropriate handler

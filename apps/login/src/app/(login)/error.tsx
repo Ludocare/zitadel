@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 export default function Error({ error, reset }: any) {
   useEffect(() => {
-    console.log("logging error:", error);
+    console.error("logging error:", error);
   }, [error]);
 
   return (
