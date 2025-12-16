@@ -4,7 +4,7 @@ import { SetPasswordForm } from "@/components/set-password-form";
 import { Translated } from "@/components/translated";
 import { getServiceConfig } from "@/lib/service-url";
 import { loadMostRecentSession } from "@/lib/session";
-import { getBrandingSettings, getLoginSettings, getPasswordComplexitySettings, getUserByID } from "@/lib/zitadel";
+import { getBrandingSettings, getDefaultOrg, getLoginSettings, getPasswordComplexitySettings, getUserByID } from "@/lib/zitadel";
 import { Session } from "@zitadel/proto/zitadel/session/v2/session_pb";
 import { User } from "@zitadel/proto/zitadel/user/v2/user_pb";
 import { Metadata } from "next";
@@ -24,6 +24,14 @@ export default async function Page(props: { searchParams: Promise<Record<string 
   const _headers = await headers();
   const { serviceConfig } = getServiceConfig(_headers);
 
+  let defaultOrganization;
+  if (!organization) {
+    const org = await getDefaultOrg({ serviceConfig });
+    if (org) {
+      defaultOrganization = org.id;
+    }
+  }
+
   // also allow no session to be found (ignoreUnkownUsername)
   let session: Session | undefined;
   if (loginName) {
@@ -34,13 +42,13 @@ export default async function Page(props: { searchParams: Promise<Record<string 
     });
   }
 
-  const branding = await getBrandingSettings({ serviceConfig, organization,
+  const branding = await getBrandingSettings({ serviceConfig, organization: organization ?? defaultOrganization,
   });
 
   const passwordComplexity = await getPasswordComplexitySettings({ serviceConfig, organization: session?.factors?.user?.organizationId,
   });
 
-  const loginSettings = await getLoginSettings({ serviceConfig, organization,
+  const loginSettings = await getLoginSettings({ serviceConfig, organization: organization ?? defaultOrganization,
   });
 
   let user: User | undefined;
