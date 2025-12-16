@@ -61,7 +61,16 @@ export interface FlowInitiationParams {
 export async function handleOIDCFlowInitiation(params: FlowInitiationParams): Promise<NextResponse> {
   const { serviceConfig, requestId, sessions, sessionCookies, request } = params;
 
+  console.log(`[OIDC Flow Init] Starting with requestId: ${requestId}, sessions: ${sessions.length}, sessionCookies: ${sessionCookies.length}`);
+
   const { authRequest } = await getAuthRequest({ serviceConfig, authRequestId: requestId.replace("oidc_", ""),
+  });
+
+  console.log(`[OIDC Flow Init] Auth request details:`, {
+    id: authRequest?.id,
+    prompt: authRequest?.prompt,
+    loginHint: authRequest?.loginHint,
+    hintUserId: authRequest?.hintUserId,
   });
 
   let organization = "";
@@ -165,13 +174,17 @@ export async function handleOIDCFlowInitiation(params: FlowInitiationParams): Pr
 
   // use existing session and hydrate it for oidc
   if (authRequest && sessions.length) {
+    console.log(`[OIDC Flow] Auth request with ${sessions.length} session(s), prompt: ${authRequest.prompt.join(', ') || 'none'}`);
+    
     if (authRequest.prompt.includes(Prompt.SELECT_ACCOUNT)) {
+      console.log(`[OIDC Flow] Prompt SELECT_ACCOUNT detected, redirecting to accounts`);
       return gotoAccounts({
         request,
         requestId: `oidc_${authRequest.id}`,
         organization,
       });
     } else if (authRequest.prompt.includes(Prompt.LOGIN)) {
+      console.log(`[OIDC Flow] Prompt LOGIN detected`);
       if (authRequest.loginHint) {
         try {
           let command: SendLoginnameCommand = {
@@ -262,11 +275,18 @@ export async function handleOIDCFlowInitiation(params: FlowInitiationParams): Pr
 
       return callbackResponse;
     } else {
+      // No prompt specified: automatically authenticate if there's a valid session
+      // If multiple sessions exist, user should select one
+      console.log(`[OIDC Flow] No prompt specified. Sessions count: ${sessions.length}`);
+      
       let selectedSession = await findValidSession({ serviceConfig, sessions,
         authRequest,
       });
 
+      console.log(`[OIDC Flow] Selected session: ${selectedSession?.id || 'none'}`);
+
       if (!selectedSession || !selectedSession.id) {
+        console.log(`[OIDC Flow] No valid session found, redirecting to accounts`);
         return gotoAccounts({
           request,
           requestId: `oidc_${authRequest.id}`,
@@ -277,12 +297,15 @@ export async function handleOIDCFlowInitiation(params: FlowInitiationParams): Pr
       const cookie = sessionCookies.find((cookie) => cookie.id === selectedSession.id);
 
       if (!cookie || !cookie.id || !cookie.token) {
+        console.log(`[OIDC Flow] No cookie found for session ${selectedSession.id}, redirecting to accounts`);
         return gotoAccounts({
           request,
           requestId: `oidc_${authRequest.id}`,
           organization,
         });
       }
+
+      console.log(`[OIDC Flow] Found cookie for session ${selectedSession.id}, attempting to create callback`);
 
       const session = {
         sessionId: cookie.id,
@@ -299,9 +322,10 @@ export async function handleOIDCFlowInitiation(params: FlowInitiationParams): Pr
           }),
         });
         if (callbackUrl) {
+          console.log(`[OIDC Flow] Successfully created callback, redirecting to: ${callbackUrl}`);
           return NextResponse.redirect(callbackUrl);
         } else {
-          console.log("could not create callback, redirect user to choose other account");
+          console.log("[OIDC Flow] Could not create callback, redirect user to choose other account");
           return gotoAccounts({
             request,
             organization,
@@ -309,7 +333,7 @@ export async function handleOIDCFlowInitiation(params: FlowInitiationParams): Pr
           });
         }
       } catch (error) {
-        console.error(error);
+        console.error("[OIDC Flow] Error creating callback:", error);
         return gotoAccounts({
           request,
           requestId,
@@ -318,6 +342,7 @@ export async function handleOIDCFlowInitiation(params: FlowInitiationParams): Pr
       }
     }
   } else {
+    console.log(`[OIDC Flow] No existing sessions found, redirecting to loginname`);
     const loginNameUrl = constructUrl(request, "/loginname");
     loginNameUrl.searchParams.set("requestId", requestId);
 
