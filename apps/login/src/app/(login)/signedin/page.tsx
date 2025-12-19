@@ -107,10 +107,9 @@ export default async function Page(props: { searchParams: Promise<any> }) {
         )}
 
         {loginSettings?.defaultRedirectUri && (
-          <div className="mt-8 flex w-full flex-row items-center">
-            <span className="flex-grow"></span>
-            <Link href={loginSettings?.defaultRedirectUri}>
-              <Button type="submit" className="self-end" variant={ButtonVariants.Primary}>
+          <div className="mt-8 flex w-full flex-col items-center gap-2">
+            <Link href={loginSettings?.defaultRedirectUri} className="self-end w-full">
+              <Button type="submit" className="self-end w-full" variant={ButtonVariants.Primary}>
                 <Translated i18nKey="continue" namespace="signedin" />
               </Button>
             </Link>
