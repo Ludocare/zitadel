@@ -1,5 +1,6 @@
 "use client";
 
+import { isCrossOrigin } from "@/lib/client";
 import { sendLoginname } from "@/lib/server/loginname";
 import { LoginSettings } from "@zitadel/proto/zitadel/settings/v2/login_settings_pb";
 import { useRouter } from "next/navigation";
@@ -70,6 +71,10 @@ export function UsernameForm({
 
     if (res && "redirect" in res && res.redirect) {
       // Keep loading state true during redirect
+      if (isCrossOrigin(res.redirect)) {
+        window.location.href = res.redirect;
+        return;
+      }
       return router.push(res.redirect);
     }
 

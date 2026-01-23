@@ -1,5 +1,6 @@
 "use client";
 
+import { isCrossOrigin } from "@/lib/client";
 import { sendLoginname } from "@/lib/server/loginname";
 import { clearSession, continueWithSession, ContinueWithSessionCommand } from "@/lib/server/session";
 import { XCircleIcon } from "@heroicons/react/24/outline";
@@ -76,6 +77,10 @@ export function SessionItem({ session, reload, requestId }: { session: Session; 
               }
 
               if (callbackResponse && "redirect" in callbackResponse) {
+                if (isCrossOrigin(callbackResponse.redirect)) {
+                  window.location.href = callbackResponse.redirect;
+                  return;
+                }
                 return router.push(callbackResponse.redirect);
               }
             } else if (session.factors?.user) {
@@ -94,6 +99,10 @@ export function SessionItem({ session, reload, requestId }: { session: Session; 
                 });
 
               if (res && "redirect" in res && res.redirect) {
+                if (isCrossOrigin(res.redirect)) {
+                  window.location.href = res.redirect;
+                  return;
+                }
                 return router.push(res.redirect);
               }
 

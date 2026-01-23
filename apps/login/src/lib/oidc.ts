@@ -25,7 +25,7 @@ export async function loginWithOIDCAndSession({
   if (selectedSession && selectedSession.id) {
     const isValid = await isSessionValid({ serviceConfig, session: selectedSession });
 
-    console.log("Session is valid:", isValid);
+    
 
     if (!isValid && selectedSession.factors?.user) {
       // if the session is not valid anymore, we need to redirect the user to re-authenticate /

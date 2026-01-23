@@ -1,6 +1,7 @@
 "use client";
 
 import { coerceToArrayBuffer, coerceToBase64Url } from "@/helpers/base64";
+import { isCrossOrigin } from "@/lib/client";
 import { sendPasskey } from "@/lib/server/passkeys";
 import { updateOrCreateSession } from "@/lib/server/session";
 import { create, JsonObject } from "@zitadel/client";
@@ -129,6 +130,10 @@ export function LoginPasskey({ loginName, sessionId, requestId, altPassword, org
     }
 
     if (response && "redirect" in response && response.redirect) {
+      if (isCrossOrigin(response.redirect)) {
+        window.location.href = response.redirect;
+        return;
+      }
       return router.push(response.redirect);
     }
 

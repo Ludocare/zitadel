@@ -1,6 +1,7 @@
 "use client";
 
 import { Alert, AlertType } from "@/components/alert";
+import { isCrossOrigin } from "@/lib/client";
 import { resendVerification, sendVerification } from "@/lib/server/verify";
 import { UNKNOWN_USER_ID } from "@/lib/constants";
 import { useRouter } from "next/navigation";
@@ -117,7 +118,11 @@ export function VerifyForm({
       }
 
       if (response && "redirect" in response && response?.redirect) {
-        return router.push(response?.redirect);
+        if (isCrossOrigin(response.redirect)) {
+          window.location.href = response.redirect;
+          return;
+        }
+        return router.push(response.redirect);
       }
     },
     [isInvite, userId, isPhoneVerification],

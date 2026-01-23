@@ -198,7 +198,7 @@ async function handleExplicitLinking(ctx: IDPHandlerContext): Promise<IDPHandler
       return { redirect: sessionRedirect || `/idp/${provider}/linking-failed?error=session_invalid` };
     }
 
-    console.log("[IDP Process] Resolved userId from session link:", resolvedUserId);
+    
 
     // 3. Perform Linking Logic
     if (!options?.isLinkingAllowed) {
@@ -237,7 +237,7 @@ async function handleExplicitLinking(ctx: IDPHandlerContext): Promise<IDPHandler
         },
         userId: resolvedUserId,
       });
-      console.log("[IDP Process] IDP linked successfully, creating session");
+      
 
       const sessionResult = await createNewSessionFromIdpIntent({
         userId: resolvedUserId,
@@ -255,7 +255,7 @@ async function handleExplicitLinking(ctx: IDPHandlerContext): Promise<IDPHandler
       }
 
       if ("redirect" in sessionResult && sessionResult.redirect) {
-        console.log("[IDP Process] Session created, redirecting to:", sessionResult.redirect);
+        
         return { redirect: sessionResult.redirect };
       }
 
@@ -286,7 +286,7 @@ async function handleUserExists(ctx: IDPHandlerContext): Promise<IDPHandlerResul
     // Auto-update user if enabled
     if (options?.isAutoUpdate && updateHumanUser) {
       try {
-        console.log("[IDP Process] Auto-updating user profile");
+        
         await updateHuman({
           serviceConfig,
           request: create(UpdateHumanUserRequestSchema, {
@@ -303,7 +303,7 @@ async function handleUserExists(ctx: IDPHandlerContext): Promise<IDPHandlerResul
     }
 
     // Create session and handle redirect
-    console.log("[IDP Process] Creating session for existing user");
+    
     const sessionResult = await createNewSessionFromIdpIntent({
       userId,
       idpIntent: {
@@ -320,7 +320,7 @@ async function handleUserExists(ctx: IDPHandlerContext): Promise<IDPHandlerResul
     }
 
     if ("redirect" in sessionResult && sessionResult.redirect) {
-      console.log("[IDP Process] Session created, redirecting to:", sessionResult.redirect);
+      
       return { redirect: sessionResult.redirect };
     }
 
@@ -395,7 +395,7 @@ async function handleAutoLinking(ctx: IDPHandlerContext): Promise<IDPHandlerResu
           },
           userId: foundUser.userId,
         });
-        console.log("[IDP Process] User auto-linked successfully, creating session");
+        
 
         // Create session after auto-linking
         const sessionResult = await createNewSessionFromIdpIntent({
@@ -414,7 +414,7 @@ async function handleAutoLinking(ctx: IDPHandlerContext): Promise<IDPHandlerResu
         }
 
         if ("redirect" in sessionResult && sessionResult.redirect) {
-          console.log("[IDP Process] Session created, redirecting to:", sessionResult.redirect);
+          
           return { redirect: sessionResult.redirect };
         }
 
@@ -463,7 +463,7 @@ async function handleAutoCreation(ctx: IDPHandlerContext): Promise<IDPHandlerRes
 
     try {
       const newUser = await addHuman({ serviceConfig, request: addHumanUserWithOrganization });
-      console.log("[IDP Process] User auto-created successfully, creating session");
+      
 
       // Create session for newly created user
       const sessionResult = await createNewSessionFromIdpIntent({
@@ -482,7 +482,7 @@ async function handleAutoCreation(ctx: IDPHandlerContext): Promise<IDPHandlerRes
       }
 
       if ("redirect" in sessionResult && sessionResult.redirect) {
-        console.log("[IDP Process] Session created, redirecting to:", sessionResult.redirect);
+        
         return { redirect: sessionResult.redirect };
       }
 
@@ -545,7 +545,7 @@ async function handleManualCreation(ctx: IDPHandlerContext): Promise<IDPHandlerR
  */
 async function handleNoUserFound(ctx: IDPHandlerContext): Promise<IDPHandlerResult> {
   const { buildRedirectParams } = ctx;
-  console.log("[IDP Process] No matching user and creation not allowed");
+  
   const params = buildRedirectParams();
   return { redirect: `/idp/${ctx.params.provider}/account-not-found?${params}` };
 }
@@ -597,7 +597,7 @@ export async function processIDPCallback({
     // Consume the single-use token ONCE
     const intent = await retrieveIDPIntent({ serviceConfig, id, token });
 
-    console.log("[IDP Process] Intent retrieved successfully, processing business logic");
+    
 
     const { idpInformation } = intent;
 

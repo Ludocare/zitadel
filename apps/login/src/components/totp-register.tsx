@@ -1,6 +1,6 @@
 "use client";
 
-import { completeFlowOrGetUrl } from "@/lib/client";
+import { completeFlowOrGetUrl, isCrossOrigin } from "@/lib/client";
 import { verifyTOTP } from "@/lib/server/verify";
 import { LoginSettings } from "@zitadel/proto/zitadel/settings/v2/login_settings_pb";
 import Link from "next/link";
@@ -80,6 +80,10 @@ export function TotpRegister({ uri, loginName, sessionId, requestId, organizatio
             }
 
             if ("redirect" in callbackResponse) {
+              if (isCrossOrigin(callbackResponse.redirect)) {
+                window.location.href = callbackResponse.redirect;
+                return;
+              }
               return router.push(callbackResponse.redirect);
             }
           } else if (loginName) {
@@ -97,6 +101,10 @@ export function TotpRegister({ uri, loginName, sessionId, requestId, organizatio
             }
 
             if ("redirect" in callbackResponse) {
+              if (isCrossOrigin(callbackResponse.redirect)) {
+                window.location.href = callbackResponse.redirect;
+                return;
+              }
               return router.push(callbackResponse.redirect);
             }
           }

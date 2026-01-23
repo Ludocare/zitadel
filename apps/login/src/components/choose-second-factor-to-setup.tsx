@@ -1,5 +1,6 @@
 "use client";
 
+import { isCrossOrigin } from "@/lib/client";
 import { skipMFAAndContinueWithNextUrl } from "@/lib/server/session";
 import { LoginSettings, SecondFactorType } from "@zitadel/proto/zitadel/settings/v2/login_settings_pb";
 import { AuthenticationMethodType } from "@zitadel/proto/zitadel/user/v2/user_service_pb";
@@ -96,7 +97,11 @@ export function ChooseSecondFactorToSetup({
 
             // For regular flows (non-OIDC/SAML), return URL for client-side navigation
             if ("redirect" in skipResponse && skipResponse.redirect) {
-              router.push(skipResponse.redirect);
+              if (isCrossOrigin(skipResponse.redirect)) {
+                window.location.href = skipResponse.redirect;
+              } else {
+                router.push(skipResponse.redirect);
+              }
             }
           }}
           type="button"

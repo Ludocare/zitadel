@@ -1,6 +1,6 @@
 "use client";
 
-import { completeFlowOrGetUrl } from "@/lib/client";
+import { completeFlowOrGetUrl, isCrossOrigin } from "@/lib/client";
 import { updateOrCreateSession } from "@/lib/server/session";
 import { create } from "@zitadel/client";
 import { RequestChallengesSchema } from "@zitadel/proto/zitadel/session/v2/challenge_pb";
@@ -204,6 +204,10 @@ export function LoginOTP({ host, loginName, sessionId, requestId, organization, 
           }
 
           if ("redirect" in callbackResponse) {
+            if (isCrossOrigin(callbackResponse.redirect)) {
+              window.location.href = callbackResponse.redirect;
+              return;
+            }
             return router.push(callbackResponse.redirect);
           }
         } else {

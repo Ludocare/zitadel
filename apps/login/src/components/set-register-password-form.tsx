@@ -1,6 +1,7 @@
 "use client";
 
 import { lowerCaseValidator, numberValidator, symbolValidator, upperCaseValidator } from "@/helpers/validators";
+import { isCrossOrigin } from "@/lib/client";
 import { registerUser } from "@/lib/server/register";
 import { PasswordComplexitySettings } from "@zitadel/proto/zitadel/settings/v2/password_settings_pb";
 import { useRouter } from "next/navigation";
@@ -78,6 +79,10 @@ export function SetRegisterPasswordForm({
 
     if (response && "redirect" in response && response.redirect) {
       // Keep loading state true during redirect
+      if (isCrossOrigin(response.redirect)) {
+        window.location.href = response.redirect;
+        return;
+      }
       return router.push(response.redirect);
     }
 

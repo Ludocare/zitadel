@@ -1,5 +1,6 @@
 "use client";
 
+import { isCrossOrigin } from "@/lib/client";
 import { processIDPCallback } from "@/lib/server/idp-intent";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -48,8 +49,6 @@ export function IdpProcessHandler({
 
     executedRef.current = true;
 
-    console.log("[IDP Process Handler] Starting IDP callback processing from client");
-
     processIDPCallback({
       provider,
       id,
@@ -69,7 +68,10 @@ export function IdpProcessHandler({
         }
 
         if (result.redirect) {
-          console.log("[IDP Process Handler] Redirecting to:", result.redirect);
+          if (isCrossOrigin(result.redirect)) {
+            window.location.href = result.redirect;
+            return;
+          }
           router.push(result.redirect);
           return;
         }

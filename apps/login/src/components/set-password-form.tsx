@@ -1,6 +1,7 @@
 "use client";
 
 import { lowerCaseValidator, numberValidator, symbolValidator, upperCaseValidator } from "@/helpers/validators";
+import { isCrossOrigin } from "@/lib/client";
 import { changePassword, resetPassword, sendPassword } from "@/lib/server/password";
 import { create } from "@zitadel/client";
 import { ChecksSchema } from "@zitadel/proto/zitadel/session/v2/session_service_pb";
@@ -147,6 +148,10 @@ export function SetPasswordForm({
     }
 
     if (passwordResponse && "redirect" in passwordResponse && passwordResponse.redirect) {
+      if (isCrossOrigin(passwordResponse.redirect)) {
+        window.location.href = passwordResponse.redirect;
+        return;
+      }
       return router.push(passwordResponse.redirect);
     }
 

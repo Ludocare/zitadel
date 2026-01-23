@@ -1,5 +1,6 @@
 "use client";
 
+import { isCrossOrigin } from "@/lib/client";
 import { clearSession } from "@/lib/server/session";
 import { timestampDate } from "@zitadel/client";
 import { Session } from "@zitadel/proto/zitadel/session/v2/session_pb";
@@ -21,7 +22,6 @@ export function SessionsClearList({ sessions, logoutHint, postLogoutRedirectUri,
   const router = useRouter();
 
   async function clearHintedSession() {
-    console.log("Clearing session for login hint:", logoutHint);
     // If a login hint is provided, we logout that specific session
     const sessionIdToBeCleared = sessions.find((session) => {
       return session.factors?.user?.loginName === logoutHint;
@@ -79,7 +79,11 @@ export function SessionsClearList({ sessions, logoutHint, postLogoutRedirectUri,
               reload={() => {
                 setList(list.filter((s) => s.id !== session.id));
                 if (postLogoutRedirectUri) {
-                  router.push(postLogoutRedirectUri);
+                  if (isCrossOrigin(postLogoutRedirectUri)) {
+                    window.location.href = postLogoutRedirectUri;
+                  } else {
+                    router.push(postLogoutRedirectUri);
+                  }
                 }
               }}
               key={"session-" + index}

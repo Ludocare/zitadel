@@ -1,7 +1,7 @@
 "use client";
 
 import { coerceToArrayBuffer, coerceToBase64Url } from "@/helpers/base64";
-import { completeFlowOrGetUrl } from "@/lib/client";
+import { completeFlowOrGetUrl, isCrossOrigin } from "@/lib/client";
 import { addU2F, verifyU2F } from "@/lib/server/u2f";
 import { LoginSettings } from "@zitadel/proto/zitadel/settings/v2/login_settings_pb";
 import { RegisterU2FResponse } from "@zitadel/proto/zitadel/user/v2/user_service_pb";
@@ -161,6 +161,10 @@ export function RegisterU2f({ loginName, sessionId, organization, requestId, che
           }
 
           if ("redirect" in callbackResponse) {
+            if (isCrossOrigin(callbackResponse.redirect)) {
+              window.location.href = callbackResponse.redirect;
+              return;
+            }
             return router.push(callbackResponse.redirect);
           }
         } else if (loginName) {
@@ -178,6 +182,10 @@ export function RegisterU2f({ loginName, sessionId, organization, requestId, che
           }
 
           if ("redirect" in callbackResponse) {
+            if (isCrossOrigin(callbackResponse.redirect)) {
+              window.location.href = callbackResponse.redirect;
+              return;
+            }
             return router.push(callbackResponse.redirect);
           }
         }

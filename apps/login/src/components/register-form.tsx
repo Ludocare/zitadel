@@ -1,5 +1,6 @@
 "use client";
 
+import { isCrossOrigin } from "@/lib/client";
 import { registerUser } from "@/lib/server/register";
 import { LegalAndSupportSettings } from "@zitadel/proto/zitadel/settings/v2/legal_settings_pb";
 import { LoginSettings, PasskeysType } from "@zitadel/proto/zitadel/settings/v2/login_settings_pb";
@@ -84,6 +85,10 @@ export function RegisterForm({
 
     if (response && "redirect" in response && response.redirect) {
       // Keep loading state true during redirect
+      if (isCrossOrigin(response.redirect)) {
+        window.location.href = response.redirect;
+        return;
+      }
       return router.push(response.redirect);
     }
 

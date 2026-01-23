@@ -1,5 +1,6 @@
 "use client";
 
+import { isCrossOrigin } from "@/lib/client";
 import { registerUserAndLinkToIDP } from "@/lib/server/register";
 import { useState } from "react";
 import { useTranslations } from "next-intl";
@@ -88,6 +89,10 @@ export function RegisterFormIDPIncomplete({
     }
 
     if (response && "redirect" in response && response.redirect) {
+      if (isCrossOrigin(response.redirect)) {
+        window.location.href = response.redirect;
+        return;
+      }
       return router.push(response.redirect);
     }
   }

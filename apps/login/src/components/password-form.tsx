@@ -1,5 +1,6 @@
 "use client";
 
+import { isCrossOrigin } from "@/lib/client";
 import { resetPassword, sendPassword } from "@/lib/server/password";
 import { create } from "@zitadel/client";
 import { ChecksSchema } from "@zitadel/proto/zitadel/session/v2/session_service_pb";
@@ -67,6 +68,10 @@ export function PasswordForm({ loginSettings, loginName, organization, defaultOr
 
     if (response && "redirect" in response && response.redirect) {
       // Keep loading state true during redirect
+      if (isCrossOrigin(response.redirect)) {
+        window.location.href = response.redirect;
+        return;
+      }
       return router.push(response.redirect);
     }
 

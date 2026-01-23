@@ -1,6 +1,7 @@
 "use client";
 
 import { Alert } from "@/components/alert";
+import { isCrossOrigin } from "@/lib/client";
 import { resendEmailVerification, sendEmailVerification } from "@/lib/server/verify";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -98,7 +99,11 @@ export function VerifyEmailForm({
 
       if (response && "redirect" in response && response?.redirect) {
         // Keep loading state true during redirect
-        return router.push(response?.redirect);
+        if (isCrossOrigin(response.redirect)) {
+          window.location.href = response.redirect;
+          return;
+        }
+        return router.push(response.redirect);
       }
 
       setLoading(false);

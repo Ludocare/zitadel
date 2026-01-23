@@ -103,7 +103,7 @@ export async function registerPasskeyLink(
       // check if a verification was done earlier
       const hasValidUserVerificationCheck = await checkUserVerification(currentUserId);
 
-      console.log("hasValidUserVerificationCheck", hasValidUserVerificationCheck);
+      
       if (!hasValidUserVerificationCheck) {
         return { error: "User Verification Check has to be done" };
       }

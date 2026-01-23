@@ -1,5 +1,6 @@
 "use client";
 
+import { isCrossOrigin } from "@/lib/client";
 import { createNewSessionForLDAP } from "@/lib/server/idp";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
@@ -58,6 +59,10 @@ export function LDAPUsernamePasswordForm({ idpId, link }: Props) {
 
     if (response && "redirect" in response && response.redirect) {
       // Keep loading state true during redirect
+      if (isCrossOrigin(response.redirect)) {
+        window.location.href = response.redirect;
+        return;
+      }
       return router.push(response.redirect);
     }
 
