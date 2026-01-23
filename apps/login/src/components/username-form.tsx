@@ -67,9 +67,6 @@ export function UsernameForm({
         setError(t("errors.internalError"));
         return;
       })
-      .finally(() => {
-        setLoading(false);
-      });
 
     if (res && "redirect" in res && res.redirect) {
       // Keep loading state true during redirect
