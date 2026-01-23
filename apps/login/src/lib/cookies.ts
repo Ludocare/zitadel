@@ -77,7 +77,7 @@ export async function addSessionToCookie<T>({
     const temp = [...currentSessions, session];
 
     if (JSON.stringify(temp).length >= MAX_COOKIE_SIZE) {
-      
+      console.log("WARNING COOKIE OVERFLOW");
       // TODO: improve cookie handling
       // this replaces the first session (oldest) with the new one
       currentSessions = [session].concat(currentSessions.slice(1));
@@ -257,7 +257,7 @@ export async function getAllSessions<T>(cleanup: boolean = false): Promise<Sessi
   const stringifiedCookie = cookiesList.get("sessions");
 
   if (!stringifiedCookie?.value) {
-    
+    console.log("getAllSessions: No session cookie found, returning empty array");
     return [];
   }
 

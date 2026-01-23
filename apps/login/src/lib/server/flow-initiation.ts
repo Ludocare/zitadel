@@ -81,7 +81,7 @@ export async function handleOIDCFlowInitiation(params: FlowInitiationParams): Pr
         const matched = ORG_DOMAIN_SCOPE_REGEX.exec(orgDomainScope);
         const orgDomain = matched?.[1] ?? "";
 
-        
+        console.log("Extracted org domain:", orgDomain);
         if (orgDomain) {
           const orgs = await getOrgsByDomain({ serviceConfig, domain: orgDomain });
 
@@ -302,7 +302,7 @@ export async function handleOIDCFlowInitiation(params: FlowInitiationParams): Pr
         if (callbackUrl) {
           return NextResponse.redirect(callbackUrl);
         } else {
-          
+          console.log("could not create callback, redirect user to choose other account");
           return gotoAccounts({
             request,
             organization,

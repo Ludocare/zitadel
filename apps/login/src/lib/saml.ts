@@ -39,7 +39,7 @@ export async function setSAMLFormCookie(value: string): Promise<string> {
 
     // Note: We can't reliably verify immediately due to Next.js cookies API behavior
     // Instead, we'll rely on the getSAMLFormCookie function to detect failures
-    
+    console.log(`Successfully set SAML form cookie with uid: ${uid}`);
 
     return uid;
   } catch (error) {
