@@ -366,6 +366,10 @@ export async function sendLoginname(command: SendLoginnameCommand) {
         invite: "true",
       });
 
+      if (userId) {
+        params.append("userId", userId);
+      }
+
       if (command.requestId) {
         params.append("requestId", command.requestId);
       }
