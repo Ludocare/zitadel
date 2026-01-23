@@ -1,2 +1,2 @@
 export const DEFAULT_CSP =
-  `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self'; child-src; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; img-src 'self' https://idp.uat.ludocare.com https://idp.prod.ludocare.com;`;
+  `default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' https://webapp.uat.ludocare.com https://webapp.prod.ludocare.com; child-src; style-src 'self' 'unsafe-inline'; font-src 'self'; object-src 'none'; img-src 'self' https://idp.uat.ludocare.com https://idp.prod.ludocare.com https://webapp.uat.ludocare.com https://webapp.prod.ludocare.com;`;
