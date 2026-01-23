@@ -325,11 +325,11 @@ export async function sendLoginname(command: SendLoginnameCommand) {
         }
 
         const params = new URLSearchParams({
-          sessionId: session.id,
+          sessionId: session?.id as string,
           initial: "true",
         });
 
-        if (session.factors?.user?.loginName) {
+        if (session?.factors?.user?.loginName) {
           params.set("loginName", session.factors?.user?.loginName);
         }
 

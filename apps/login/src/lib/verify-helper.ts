@@ -81,16 +81,16 @@ export function checkEmailVerification(session: Session, humanUser?: HumanUser, 
   }
 }
 
-export function checkPhoneVerification(session: Session, humanUser?: HumanUser, organization?: string, requestId?: string) {
+export function checkPhoneVerification(session?: Session | Partial<Session>, humanUser?: HumanUser, organization?: string, requestId?: string) {
   if (!humanUser?.phone?.isVerified && humanUser?.phone?.phone) {
     const params = new URLSearchParams({
-      loginName: session.factors?.user?.loginName as string,
-      userId: session.factors?.user?.id as string,
+      loginName: session?.factors?.user?.loginName as string,
+      userId: session?.factors?.user?.id as string,
       send: "true", // we request a new phone code once the page is loaded
     });
 
-    if (organization || session.factors?.user?.organizationId) {
-      params.append("organization", organization ?? (session.factors?.user?.organizationId as string));
+    if (organization || session?.factors?.user?.organizationId) {
+      params.append("organization", organization ?? (session?.factors?.user?.organizationId as string));
     }
 
     if (requestId) {
