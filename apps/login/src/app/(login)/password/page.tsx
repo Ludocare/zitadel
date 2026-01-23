@@ -63,7 +63,7 @@ export default async function Page(props: { searchParams: Promise<Record<string 
           <Translated i18nKey="verify.title" namespace="password" />
         </h1>
         
-        {sessionFactors && (
+        {sessionFactors ? (
           <UserAvatar
             loginName={loginName ?? sessionFactors.factors?.user?.loginName}
             displayName={sessionFactors.factors?.user?.displayName}
