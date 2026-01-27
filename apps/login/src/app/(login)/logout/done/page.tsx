@@ -1,3 +1,4 @@
+import { BackButton } from "@/components/back-button";
 import { DynamicTheme } from "@/components/dynamic-theme";
 import { Translated } from "@/components/translated";
 import { getServiceConfig } from "@/lib/service-url";
@@ -25,7 +26,11 @@ export default async function Page(props: { searchParams: Promise<any> }) {
           <Translated i18nKey="success.description" namespace="logout" />
         </p>
       </div>
-      <div className="w-full"></div>
+      <div className="w-full">
+        <div className="mt-10 flex w-full flex-col items-center gap-2">
+          <BackButton data-testid="back-button" />
+        </div>
+      </div>
     </DynamicTheme>
   );
 }

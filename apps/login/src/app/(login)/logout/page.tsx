@@ -1,3 +1,4 @@
+import { BackButton } from "@/components/back-button";
 import { DynamicTheme } from "@/components/dynamic-theme";
 import { SessionsClearList } from "@/components/sessions-clear-list";
 import { Translated } from "@/components/translated";
@@ -87,7 +88,6 @@ export default async function Page(props: { searchParams: Promise<Record<string 
           <Translated i18nKey="description" namespace="logout" />
         </p>
       </div>
-
       <div className="w-full">
         <div className="flex w-full flex-col space-y-2">
           <SessionsClearList
@@ -97,7 +97,12 @@ export default async function Page(props: { searchParams: Promise<Record<string 
             organization={organization ?? defaultOrganization}
           />
         </div>
+        <div className="mt-10 flex w-full flex-col items-center gap-2">
+          <BackButton data-testid="back-button" />
+        </div>
       </div>
+
+      
     </DynamicTheme>
   );
 }

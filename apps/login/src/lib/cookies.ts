@@ -51,6 +51,11 @@ async function setSessionHttpOnlyCookie<T>(sessions: SessionCookie<T>[], iFrameE
     }
   }
 
+  // If no sessions, then we should remove the cookie by setting maxAge to 0
+  if (sessions.length === 0) {
+    maxAge = 0;
+  }
+
   return cookiesList.set({
     name: "sessions",
     value: JSON.stringify(sessions),
