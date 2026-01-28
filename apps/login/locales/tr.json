@@ -14,6 +14,7 @@
   "logout": {
     "title": "Çıkış",
     "description": "Oturumu sonlandırmak için bir hesaba tıklayın",
+    "autoLoggingOut": "Oturum kapatılıyor...",
     "noResults": "Hesap bulunamadı",
     "clear": "Oturumu Sonlandır",
     "verifiedAt": "Son aktif: {time}",

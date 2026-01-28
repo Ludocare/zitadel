@@ -14,6 +14,7 @@
   "logout": {
     "title": "Uitloggen",
     "description": "Klik op een account om de sessie te beëindigen",
+    "autoLoggingOut": "Uitloggen...",
     "noResults": "Geen accounts gevonden",
     "clear": "Sessie beëindigen",
     "verifiedAt": "Laatst actief: {time}",

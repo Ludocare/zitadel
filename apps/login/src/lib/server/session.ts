@@ -276,5 +276,5 @@ export async function clearSession(options: ClearSessionOptions) {
     throw new Error("Could not delete session");
   }
 
-  return removeSessionFromCookie({ session: sessionCookie, iFrameEnabled });
+  await removeSessionFromCookie({ session: sessionCookie, iFrameEnabled });
 }

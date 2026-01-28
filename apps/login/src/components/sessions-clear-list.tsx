@@ -28,16 +28,11 @@ export function SessionsClearList({ sessions, logoutHint, postLogoutRedirectUri,
     })?.id;
 
     if (sessionIdToBeCleared) {
-      const clearSessionResponse = await clearSession({
+      await clearSession({
         sessionId: sessionIdToBeCleared,
       }).catch((error) => {
         console.error("Error clearing session:", error);
-        return;
       });
-
-      if (!clearSessionResponse) {
-        console.error("Failed to clear session for login hint:", logoutHint);
-      }
 
       if (postLogoutRedirectUri) {
         return redirect(postLogoutRedirectUri);

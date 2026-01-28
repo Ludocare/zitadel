@@ -14,6 +14,7 @@
   "logout": {
     "title": "Déconnexion",
     "description": "Cliquez sur un compte pour terminer la session",
+    "autoLoggingOut": "Déconnexion...",
     "noResults": "Pas de compte trouvé",
     "clear": "Fin de session",
     "verifiedAt": "Dernière connexion: {time}",

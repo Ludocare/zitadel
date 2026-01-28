@@ -1,3 +1,4 @@
+import { AutoLogout } from "@/components/auto-logout";
 import { BackButton } from "@/components/back-button";
 import { DynamicTheme } from "@/components/dynamic-theme";
 import { SessionsClearList } from "@/components/sessions-clear-list";
@@ -64,13 +65,28 @@ export default async function Page(props: { searchParams: Promise<Record<string 
   if (!organization) {
     const org: Organization | null = await getDefaultOrg({ serviceConfig });
     if (org) {
-      defaultOrganization = org.id;
+      defaultOrganization = String(org.id);
     }
   }
 
   let sessions = await loadSessions({ serviceConfig });
 
   const branding = await getBrandingSettings({ serviceConfig, organization: organization ?? defaultOrganization });
+
+  // Auto-logout if only one session exists
+  if (sessions.length === 1 && !logoutHint) {
+    const session = sessions[0];
+    const orgValue = organization ?? defaultOrganization;
+    return (
+      <DynamicTheme branding={branding}>
+        <AutoLogout
+          sessionId={String(session.id)}
+          postLogoutRedirectUri={postLogoutRedirectUri ? String(postLogoutRedirectUri) : undefined}
+          organization={orgValue ? String(orgValue) : undefined}
+        />
+      </DynamicTheme>
+    );
+  }
 
   const params = new URLSearchParams();
 

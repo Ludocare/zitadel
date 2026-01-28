@@ -14,6 +14,7 @@
   "logout": {
     "title": "ログアウト",
     "description": "セッションを終了するアカウントをクリックしてください",
+    "autoLoggingOut": "ログアウトしています...",
     "noResults": "アカウントが見つかりません",
     "clear": "セッション終了",
     "verifiedAt": "最後のアクティブ: {time}",

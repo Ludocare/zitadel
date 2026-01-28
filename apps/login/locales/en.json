@@ -14,6 +14,7 @@
   "logout": {
     "title": "Logout",
     "description": "Click an account to end the session",
+    "autoLoggingOut": "Logging out...",
     "noResults": "No accounts found",
     "clear": "End Session",
     "verifiedAt": "Last active: {time}",

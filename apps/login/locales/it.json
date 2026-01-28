@@ -14,6 +14,7 @@
   "logout": {
     "title": "Esci",
     "description": "Seleziona l'account che desideri uscire",
+    "autoLoggingOut": "Disconnessione in corso...",
     "noResults": "Nessun account trovato",
     "clear": "Elimina sessione",
     "verifiedAt": "Ultima attività: {time}",
