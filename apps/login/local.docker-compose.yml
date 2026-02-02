@@ -10,8 +10,8 @@ services:
             - NEXT_PUBLIC_BASE_PATH=/ui/v2/login
             - PORT=3000
             # Zitadel configuration (required for service URL determination)
-            - ZITADEL_API_URL=https://idp.uat.ludocare.com
-            - "ZITADEL_SERVICE_USER_TOKEN=uS4NJsq245WqNmD1wDvH84H5L_6hlrettS_YSZCzcxfo4u8fHJM88Hi0a6OiBlQHFmCYjC8"
+            - ZITADEL_API_URL=${IDP_UAT_URL}
+            - ZITADEL_SERVICE_USER_TOKEN=${IDP_SERVICE_ACCESS_TOKEN_LOGIN}
             - EMAIL_VERIFICATION=true
         ports:
             - "3021:3000"
