@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { Alert, AlertType } from "./alert";
 import { BackButton } from "./back-button";
 import { Button, ButtonVariants } from "./button";
-import { TextInput } from "./input";
+import { PasswordInput } from "./password-input";
 import { Spinner } from "./spinner";
 import { Translated } from "./translated";
 
@@ -124,8 +124,7 @@ export function PasswordForm({ loginSettings, loginName, organization, defaultOr
   return (
     <form className="w-full">
       <div className={`${error && "transform-gpu animate-shake"}`}>
-        <TextInput
-          type="password"
+        <PasswordInput
           autoComplete="password"
           {...register("password", { required: t("verify.required.password") })}
           label={t("verify.labels.password")}
